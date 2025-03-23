@@ -16,7 +16,7 @@ Our final project is a gesture controlled rover robot designed to enable users t
 
 ### 2. Motivation
 
-*What is the problem that you are trying to solve? Why is this project interesting? What is the intended purpose?*
+Controlling robots using traditional joysticks or remotes can often be challenging and unintuitive, especially for new users. To address this, our project introduces a gesture-based control system that simplifies robot navigation while enhancing flexibility and precision through the use of omni wheels. The robot has the ability to move smoothly in multiple directions, including lateral and diagonal motion. Additionally, the inclusion of a collision detection system enhances the project's safety features by enabling the robot to identify and respond to nearby obstacles. These features make the project particularly valuable in practical applications like exploration and assistive robots for hazardous. The combination of intuitive gesture control and omni wheel movement offers a unique blend of precision, responsiveness, and user-friendly control.
 
 ### 3. System Block Diagram
 
