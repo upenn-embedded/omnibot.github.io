@@ -41,9 +41,9 @@ For power regulation, FeatherS2 requires a 3.3V regulated power supply. Meanwhil
 
 ### 4. Design Sketches
 
-*What will your project look like? Do you have any critical design features? Will you need any special manufacturing techniques to achieve your vision, like power tools, laser cutting, or 3D printing?*
-
 ![1742787555224](image/README/1742787555224.png)
+
+For our design, the robot's base uses omni wheels for enhanced motion in multiple directions. The use of an ultrasonic sensor for obstacle detection ensures improved environmental awareness. The top layer of the robot houses all essential electronics, including the ATmega board, motor drivers, and power distribution system. On the glove controller, the IMU is positioned centrally on the back of the hand to accurately detect wrist movements, and the flex sensors are embedded along the fingers to track bending angles for speed control. We also plan to employ 3D printing and laser cutting for the motor mounts, structural supports, and the robot’s chassis.
 
 ### 5. Software Requirements Specification (SRS)
 
