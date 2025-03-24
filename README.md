@@ -54,15 +54,17 @@ Ultrasonic Sensor: A distance sensor that uses sound waves to detect objects. It
 
 ### 6. Hardware Requirements Specification (HRS)
 
-*Formulate key hardware requirements here. Think deeply on the design: What must your device do? How will you measure this during validation testing? Create 4 to 8 critical system requirements.*
-
-*These must be testable! See the Final Project Manual Appendix for details. Refer to the table below; replace these examples with your own.*
-
-The hardware for the gesture controller rover will allow it to move freely in many directions as well as sense the motion of the controller. Additionally, it will be able to sense obstacles ahead using an ultrasonic sensor. 
+The hardware for the gesture controller rover will allow it to move freely in many directions as well as sense the motion of the controller. Additionally, it will be able to sense obstacles ahead using an ultrasonic sensor.  
 
 **6.1 Definitions, Abbreviations**
 
 Here, you will define any special terms, acronyms, or abbreviations you plan to use for hardware
+
+Feather ESP32: Board for wireless communication
+
+ATMega328pb: Main microcontroller on the rover
+
+IMU: Inertial Measurement Unit: Sensor able to detect rotations and accelerations  
 
 **6.2 Functionality**
 
@@ -72,24 +74,20 @@ Here, you will define any special terms, acronyms, or abbreviations you plan to 
 | HRS-02 | The ultrasonic sensor must be able to accurately detect obstacles within 5-100 cm |
 | HRS-03 | The motors must be able to move the rover at varying speeds |
 | HRS-04 | The rover must be able to move in perpendicular directions without needing to turn using the omni wheels |
-| HRS-05 | The flex sensor must be able to control the speed of the rover |
+| HRS-05 | The flex sensor must be able to control the speed of the rover using an ADC |
 | HRS-06 | Motion of the IMU must translate into motion of the rover |
+| HRS-07 | The two ESP32 boards must be able to wirelessly communicate with each other directly |
+| HRS-08 | The ESP32 and ATMega328pb must be able to communicate using SPI |
 
 ### 7. Bill of Materials (BOM)
 
-*What major components do you need and why? Try to be as specific as possible. Your Hardware & Software Requirements Specifications should inform your component choices.*
-
 We need the ATMega328pb, 2 FeatherS2, the LSM6ds0 IMU, the US-10 ultrasonic sensor, 3 motors with encoders, 3 omni wheels, 3 motor drivers, flex sensor, battery pack
-
-*In addition to this written response, copy the Final Project BOM Google Sheet and fill it out with your critical components (think: processors, sensors, actuators). Include the link to your BOM in this section.*
 
 <https://docs.google.com/spreadsheets/d/1VVz9bghLVpC_rwVTz9ZApd166kRQwFx1JgdSo3LERfQ/edit?gid=253149064#gid=253149064>
 
 ### 8. Final Demo Goals
 
-*How will you demonstrate your device on demo day? Will it be strapped to a person, mounted on a bicycle, require outdoor space? Think of any physical, temporal, and other constraints that could affect your planning.*
-
-On demo day, we will place the rover in an obstacle course and manuver it from start to finish. It will end by trying to send the rover into a wall but the rover will succesfully stop in time.  
+On Demo Day, we will build an obstacle course for our rover to test in. Someone will wear the controller and manuver the rover around obstacles. Part of the test will include getting close to an obstacle and stopping before a collision. The test will conclude when the rover is successfully able to get to the end of the obstacle course.  
 
 ### 9. Sprint Planning
 
