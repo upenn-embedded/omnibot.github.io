@@ -36,7 +36,7 @@ IMU (Inertial Measurement Unit): A sensor that combines an accelerometer and a g
 
 Flex sensor: A sensor that changes its resistance based on the amount of bending or flexing. It is used here to detect finger position and aid in gesture control.
 
-NRF24L01: The wireless communication module using SPI to transmit data between the wearable controller and the robot.
+Feather ESP32: The wireless communication module using SPI to transmit data between the wearable controller and the robot.
 
 Ultrasonic Sensor: A distance sensor that uses sound waves to detect objects. It is used here for obstacle detection on the robot.
 
@@ -46,7 +46,7 @@ Ultrasonic Sensor: A distance sensor that uses sound waves to detect objects. It
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | SRS-01 | The IMU and flex sensors shall track predefined hand gestures (forward, backward, left, and right tilt, wrist roll, and open palm) within 200ms.                                                                                  |
 | SRS-02 | The ATmega328PB shall process the IMU data and classify gestures based off of certain threshold values correctly.                                                                                                                  |
-| SRS-03 | The NRF24L01 will transmit gesture data from the user to the robot with latency < 200ms.                                                                                                                                           |
+| SRS-03 | The ESP32 will transmit gesture data from the user to the robot with latency < 200ms.                                                                                                                                           |
 | SRS-04 | The robot shall have three speed modes controlled based on the angular velocity detected from wrist rolling.                                                                                                                       |
 | SRS-05 | The ultrasonic sensor shall detect obstacles within 5–100 cm. If an obstacle is within 20 cm, the robot will stop, ignore commands, and the LED will turn red. Once cleared, the robot resumes movement, and the LED turns green. |
 | SRS-06 | The entire system will run independently on the ATmega328PB without the need of an external computer.                                                                                                                              |
@@ -75,7 +75,11 @@ Here, you will define any special terms, acronyms, or abbreviations you plan to 
 
 *What major components do you need and why? Try to be as specific as possible. Your Hardware & Software Requirements Specifications should inform your component choices.*
 
+We need the ATMega328pb, 2 FeatherS2, the LSM6ds0 IMU, the US-10 ultrasonic sensor, 3 motors with encoders, 3 omni wheels, 3 motor drivers, flex sensor, battery pack
+
 *In addition to this written response, copy the Final Project BOM Google Sheet and fill it out with your critical components (think: processors, sensors, actuators). Include the link to your BOM in this section.*
+
+<https://docs.google.com/spreadsheets/d/1VVz9bghLVpC_rwVTz9ZApd166kRQwFx1JgdSo3LERfQ/edit?gid=253149064#gid=253149064>
 
 ### 8. Final Demo Goals
 
