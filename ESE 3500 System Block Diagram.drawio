@@ -8,36 +8,36 @@
           <mxGeometry x="930" y="160" width="460" height="330" as="geometry" />
         </mxCell>
         <mxCell id="Hwga3ibiMN_EX1LtqwRA-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="280" y="200" width="490" height="250" as="geometry" />
+          <mxGeometry x="440" y="200" width="320" height="250" as="geometry" />
         </mxCell>
         <mxCell id="UtW_tzCOETzNDBHTeHjL-1" value="FeatherS2 (UART)&lt;div&gt;(Gesture Capture)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="460" y="300" width="120" height="60" as="geometry" />
+          <mxGeometry x="540" y="300" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="UtW_tzCOETzNDBHTeHjL-2" value="LSM6DS0 IMU (I2C)&lt;div&gt;(Motion Detection)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="380" y="210" width="120" height="60" as="geometry" />
+          <mxGeometry x="460" y="210" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="UtW_tzCOETzNDBHTeHjL-3" value="Flex Sensor [ADC]&lt;div&gt;(Finger Position)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="540" y="210" width="120" height="60" as="geometry" />
+          <mxGeometry x="620" y="210" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="UtW_tzCOETzNDBHTeHjL-6" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="UtW_tzCOETzNDBHTeHjL-3" target="UtW_tzCOETzNDBHTeHjL-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="630" y="320" as="sourcePoint" />
-            <mxPoint x="680" y="270" as="targetPoint" />
+            <mxPoint x="710" y="320" as="sourcePoint" />
+            <mxPoint x="760" y="270" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="UtW_tzCOETzNDBHTeHjL-9" value="Power System&lt;div&gt;(3.3V Regulated)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="460" y="380" width="120" height="60" as="geometry" />
+          <mxGeometry x="540" y="380" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="UtW_tzCOETzNDBHTeHjL-10" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="UtW_tzCOETzNDBHTeHjL-9" target="UtW_tzCOETzNDBHTeHjL-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="630" y="320" as="sourcePoint" />
-            <mxPoint x="680" y="270" as="targetPoint" />
+            <mxPoint x="710" y="320" as="sourcePoint" />
+            <mxPoint x="760" y="270" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Hwga3ibiMN_EX1LtqwRA-1" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="UtW_tzCOETzNDBHTeHjL-2" target="UtW_tzCOETzNDBHTeHjL-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="510" y="360" as="sourcePoint" />
-            <mxPoint x="490" y="290" as="targetPoint" />
+            <mxPoint x="590" y="360" as="sourcePoint" />
+            <mxPoint x="570" y="290" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Hwga3ibiMN_EX1LtqwRA-3" value="ATmega&lt;div&gt;(Motor Control)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
