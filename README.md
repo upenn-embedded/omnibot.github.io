@@ -20,8 +20,6 @@ Controlling robots using traditional joysticks or remotes can often be challengi
 
 ### 3. System Block Diagram
 
-*Show your high level design, as done in WS1 and WS2. What are the critical components in your system? How do they communicate (I2C?, interrupts, ADC, etc.)? What power regulation do you need?*
-
 ![1742785425384](image/README/1742785425384.png)
 
 
@@ -113,12 +111,12 @@ On Demo Day, we will build an obstacle course for our rover to test in. Someone 
 
 *You've got limited time to get this project done! How will you plan your sprint milestones? How will you distribute the work within your team? Review the schedule in the final project manual for exact dates.*
 
-| Milestone  | Functionality Achieved | Distribution of Work |
-| ---------- | ---------------------- | -------------------- |
-| Sprint #1  |                        |                      |
-| Sprint #2  |                        |                      |
-| MVP Demo   |                        |                      |
-| Final Demo |                        |                      |
+| Milestone  | Functionality Achieved                                                                                                                                                                                                                                                                                           | Distribution of Work                                                                                                                                                                                                  |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sprint #1  | 1. Developed Wearable Controller Prototype using the FeatherS2.<br />2. Implemented motion sensing algorithms with the  LSM6DS0 IMU.<br />3. Integrated the Flex Sensor for ADC-based speed control.<br />4. Developed basic motor control firmware for the ATmega using PWM signals for speed and direction. | 1. Vidhu: FeatherS2 code for IMU and Flex Sensor integration.<br />2. Izzy: ATmega328PB motor control firmware development.<br />3. Helena: Hardware setup, wiring, and initial system testing.                    |
+| Sprint #2  | 1. Established UART Communication between the two FeatherS2 boards.<br />2. Integrated gesture detection logic with motor speed control via PWM signals.<br />3. Assembled hardware components: Motor Drivers, Omni Wheels, and Power Systems.<br />4. Conducted movement tests to verify functionality.      | 1. Vidhu: UART communication code on both FeatherS2 boards.<br />2. Izzy: ATmega328PB firmware to decode UART data and control motors.<br />3. Helena: Hardware assembly, component mounting, and test setup.      |
+| MVP Demo   | 1. Developed and tested the Ultrasonic Sensor with the ATmega328PB.<br />2. Integrated obstacle detection logic to trigger the Buzzer via GPIO.<br />3. Refined gesture detection algorithms to improve accuracy.<br />4. Fine-tuned Flex Sensor ADC values for smoother speed control.                      | 1. Vidhu: Ultrasonic sensor and buzzer control implementation.<br />2. Izzy: Refinement of gesture detection code for better responsiveness.<br />3. Helena: Conducted thorough testing of speed control accuracy. |
+| Final Demo | 1. Conducted full system integration for all subsystems.<br />2. Performed system calibration for accurate motion control, speed adjustment, and obstacle detection.<br />3. Conducted extensive performance testing for stability.                                                                           | 1. Vidhu: Final integration and calibration.<br />2. Izzy: Conducted performance testing and refined software logic.<br />3. Helena: In charge of documentation and demonstration preparation.                     |
 
 **This is the end of the Project Proposal section. The remaining sections will be filled out based on the milestone schedule.**
 
