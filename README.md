@@ -22,11 +22,12 @@ Controlling robots using traditional joysticks or remotes can often be challengi
 
 *Show your high level design, as done in WS1 and WS2. What are the critical components in your system? How do they communicate (I2C?, interrupts, ADC, etc.)? What power regulation do you need?*
 
+![1742785425384](image/README/1742785425384.png)
+
 ### 4. Design Sketches
 
 *What will your project look like? Do you have any critical design features? Will you need any special manufacturing techniques to achieve your vision, like power tools, laser cutting, or 3D printing?*
 
-![1742785377172](image/README/1742785377172.png)
 
 ### 5. Software Requirements Specification (SRS)
 
