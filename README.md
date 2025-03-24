@@ -58,6 +58,8 @@ Ultrasonic Sensor: A distance sensor that uses sound waves to detect objects. It
 
 *These must be testable! See the Final Project Manual Appendix for details. Refer to the table below; replace these examples with your own.*
 
+The hardware for the gesture controller rover will allow it to move freely in many directions as well as sense the motion of the controller. Additionally, it will be able to sense obstacles ahead using an ultrasonic sensor. 
+
 **6.1 Definitions, Abbreviations**
 
 Here, you will define any special terms, acronyms, or abbreviations you plan to use for hardware
@@ -66,10 +68,12 @@ Here, you will define any special terms, acronyms, or abbreviations you plan to 
 
 | ID     | Description                                                                                                                        |
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| HRS-01 | A distance sensor shall be used for obstacle detection. The sensor shall detect obstacles at a maximum distance of at least 10 cm. |
-| HRS-02 | A noisemaker shall be inside the trap with a strength of at least 55 dB.                                                           |
-| HRS-03 | An electronic motor shall be used to reset the trap remotely and have a torque of 40 Nm in order to reset the trap mechanism.      |
-| HRS-04 | A camera sensor shall be used to capture images of the trap interior. The resolution shall be at least 480p.                       |
+| HRS-01 | The rover must be able to run for at least 15 minutes continuously |
+| HRS-02 | The ultrasonic sensor must be able to accurately detect obstacles within 5-100 cm |
+| HRS-03 | The motors must be able to move the rover at varying speeds |
+| HRS-04 | The rover must be able to move in perpendicular directions without needing to turn using the omni wheels |
+| HRS-05 | The flex sensor must be able to control the speed of the rover |
+| HRS-06 | Motion of the IMU must translate into motion of the rover |
 
 ### 7. Bill of Materials (BOM)
 
@@ -84,6 +88,8 @@ We need the ATMega328pb, 2 FeatherS2, the LSM6ds0 IMU, the US-10 ultrasonic sens
 ### 8. Final Demo Goals
 
 *How will you demonstrate your device on demo day? Will it be strapped to a person, mounted on a bicycle, require outdoor space? Think of any physical, temporal, and other constraints that could affect your planning.*
+
+On demo day, we will place the rover in an obstacle course and manuver it from start to finish. It will end by trying to send the rover into a wall but the rover will succesfully stop in time.  
 
 ### 9. Sprint Planning
 
