@@ -43,6 +43,7 @@ For power regulation, FeatherS2 requires a 3.3V regulated power supply. Meanwhil
 
 *What will your project look like? Do you have any critical design features? Will you need any special manufacturing techniques to achieve your vision, like power tools, laser cutting, or 3D printing?*
 
+![1742787555224](image/README/1742787555224.png)
 
 ### 5. Software Requirements Specification (SRS)
 
