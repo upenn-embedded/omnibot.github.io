@@ -26,6 +26,8 @@ Controlling robots using traditional joysticks or remotes can often be challengi
 
 *What will your project look like? Do you have any critical design features? Will you need any special manufacturing techniques to achieve your vision, like power tools, laser cutting, or 3D printing?*
 
+![1742785377172](image/README/1742785377172.png)
+
 ### 5. Software Requirements Specification (SRS)
 
 The software for the gesture-controlled rover robot will be able to process real-time motion and detect different gestures, wirelessly transmit commands, and be able to precisely control the rover. This can be broken down into three different subsystems: wearble gesture controller, rover control system, and collision detection system. The wearable gesture controller detects user gestures and transmits these movemements wirelessly. The rover control system will be able to interrept these commands and control the rover's movement using predefined gesture mappings. The collision detection system monitors the rover/s surroundings and alerts the users of any obstacles. Key requirements include gesture recognition accuracy, reliable wireless communication, precise motor control, and responsive collision detection
@@ -46,7 +48,7 @@ Ultrasonic Sensor: A distance sensor that uses sound waves to detect objects. It
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | SRS-01 | The IMU and flex sensors shall track predefined hand gestures (forward, backward, left, and right tilt, wrist roll, and open palm) within 200ms.                                                                                  |
 | SRS-02 | The ATmega328PB shall process the IMU data and classify gestures based off of certain threshold values correctly.                                                                                                                  |
-| SRS-03 | The ESP32 will transmit gesture data from the user to the robot with latency < 200ms.                                                                                                                                           |
+| SRS-03 | The ESP32 will transmit gesture data from the user to the robot with latency < 200ms.                                                                                                                                              |
 | SRS-04 | The robot shall have three speed modes controlled based on the angular velocity detected from wrist rolling.                                                                                                                       |
 | SRS-05 | The ultrasonic sensor shall detect obstacles within 5–100 cm. If an obstacle is within 20 cm, the robot will stop, ignore commands, and the LED will turn red. Once cleared, the robot resumes movement, and the LED turns green. |
 | SRS-06 | The entire system will run independently on the ATmega328PB without the need of an external computer.                                                                                                                              |
@@ -54,7 +56,7 @@ Ultrasonic Sensor: A distance sensor that uses sound waves to detect objects. It
 
 ### 6. Hardware Requirements Specification (HRS)
 
-The hardware for the gesture controller rover will allow it to move freely in many directions as well as sense the motion of the controller. Additionally, it will be able to sense obstacles ahead using an ultrasonic sensor.  
+The hardware for the gesture controller rover will allow it to move freely in many directions as well as sense the motion of the controller. Additionally, it will be able to sense obstacles ahead using an ultrasonic sensor.
 
 **6.1 Definitions, Abbreviations**
 
@@ -64,30 +66,30 @@ Feather ESP32: Board for wireless communication
 
 ATMega328pb: Main microcontroller on the rover
 
-IMU: Inertial Measurement Unit: Sensor able to detect rotations and accelerations  
+IMU: Inertial Measurement Unit: Sensor able to detect rotations and accelerations
 
 **6.2 Functionality**
 
-| ID     | Description                                                                                                                        |
-| ------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| HRS-01 | The rover must be able to run for at least 15 minutes continuously |
-| HRS-02 | The ultrasonic sensor must be able to accurately detect obstacles within 5-100 cm |
-| HRS-03 | The motors must be able to move the rover at varying speeds |
+| ID     | Description                                                                                              |
+| ------ | -------------------------------------------------------------------------------------------------------- |
+| HRS-01 | The rover must be able to run for at least 15 minutes continuously                                       |
+| HRS-02 | The ultrasonic sensor must be able to accurately detect obstacles within 5-100 cm                        |
+| HRS-03 | The motors must be able to move the rover at varying speeds                                              |
 | HRS-04 | The rover must be able to move in perpendicular directions without needing to turn using the omni wheels |
-| HRS-05 | The flex sensor must be able to control the speed of the rover using an ADC |
-| HRS-06 | Motion of the IMU must translate into motion of the rover |
-| HRS-07 | The two ESP32 boards must be able to wirelessly communicate with each other directly |
-| HRS-08 | The ESP32 and ATMega328pb must be able to communicate using SPI |
+| HRS-05 | The flex sensor must be able to control the speed of the rover using an ADC                              |
+| HRS-06 | Motion of the IMU must translate into motion of the rover                                                |
+| HRS-07 | The two ESP32 boards must be able to wirelessly communicate with each other directly                     |
+| HRS-08 | The ESP32 and ATMega328pb must be able to communicate using SPI                                          |
 
 ### 7. Bill of Materials (BOM)
 
 We need the ATMega328pb, 2 FeatherS2, the LSM6ds0 IMU, the US-10 ultrasonic sensor, 3 motors with encoders, 3 omni wheels, 3 motor drivers, flex sensor, battery pack
 
-<https://docs.google.com/spreadsheets/d/1VVz9bghLVpC_rwVTz9ZApd166kRQwFx1JgdSo3LERfQ/edit?gid=253149064#gid=253149064>
+[https://docs.google.com/spreadsheets/d/1VVz9bghLVpC_rwVTz9ZApd166kRQwFx1JgdSo3LERfQ/edit?gid=253149064#gid=253149064](https://docs.google.com/spreadsheets/d/1VVz9bghLVpC_rwVTz9ZApd166kRQwFx1JgdSo3LERfQ/edit?gid=253149064#gid=253149064)
 
 ### 8. Final Demo Goals
 
-On Demo Day, we will build an obstacle course for our rover to test in. Someone will wear the controller and manuver the rover around obstacles. Part of the test will include getting close to an obstacle and stopping before a collision. The test will conclude when the rover is successfully able to get to the end of the obstacle course.  
+On Demo Day, we will build an obstacle course for our rover to test in. Someone will wear the controller and manuver the rover around obstacles. Part of the test will include getting close to an obstacle and stopping before a collision. The test will conclude when the rover is successfully able to get to the end of the obstacle course.
 
 ### 9. Sprint Planning
 
