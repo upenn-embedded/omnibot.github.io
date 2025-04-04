@@ -22,7 +22,6 @@ Controlling robots using traditional joysticks or remotes can often be challengi
 
 ![1742785425384](image/README/1742785425384.png)
 
-
 Our system consists of two primary subsystems: the **WearableGesture Capture System** and the **Motor Control System** for the rover robot. They utilize various communication protocols including I2C, ADC, UART, PWM, and GPIO. Additionally, regulated power supplies are integrated into both subsystems to deliver stable voltage levels.
 
 The **Wearable Gesture Capture System** is centered around FeatherS2, which manages both sensor inputs and wireless data transmission. It will handle gesture capture by interfacing with the LSM6DS0 IMU and Flex Sensor, while simultaneously transmitting control data to the rover's ESP32 module via UART.
@@ -125,9 +124,25 @@ On Demo Day, we will build an obstacle course for our rover to test in. Someone 
 
 ### Last week's progress
 
+We have designed and modeled the housing for our robot. We then laser cut the parts out of acrylic. 
+
+![1743784290832](image/README/1743784290832.png)
+
+We have also started implementing the gesture control by working with the IMU and feather S2 to determine the acceleration and rotation of the controller. The IMU is not outputting the measurements properly so it will require further debugging. 
+
 ### Current state of project
 
+The project is coming along well. We are still waiting on the bulk of our parts to come in so we can start testing with the motors.
+
 ### Next week's plan
+
+Finish implementing the IMU detection. We will also start testing the flex sensor ADC. We will start assembing the physical robot using the laser cut parts and the other parts if they arrive.
+
+Vidhu will finish debugging the IMU. 
+
+Izzy will assemble the robot. 
+
+Helena will test the flex sensor. 
 
 ## Sprint Review #2
 
