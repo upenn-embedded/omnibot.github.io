@@ -12,11 +12,20 @@
 #define OUTY_H_A 0x2B
 #define OUTZ_L_A 0x2C
 #define OUTZ_H_A 0x2D
+#define OUTX_L_G 0x22
+#define OUTX_H_G 0x23
+#define OUTY_L_G 0x24
+#define OUTY_H_G 0x25
+#define OUTZ_L_G 0x26
+#define OUTZ_H_G 0x27
 #define CTRL1_XL 0x10
 
 
 void I2C_init() {
     TWBR0 = 0x48; // set the bit rate // 100kHz at 16MHz 
+    // 100 kHz is the max of lsm i2c standard mode clock frequency
+    // datasheet pg13
+    // 100 kHz calculated using formula on atmega datasheet 256
     TWCR0 = (1 << TWEN); // enable TWI
     // possibly switch to interrupt based I2C ?
 }
@@ -73,10 +82,15 @@ int main() {
     uint8_t z_h;
     int16_t z;
     
+    int16_t xg;
+    int16_t yg;
+    int16_t zg;
+    
     while(1) {
         x_l = read_register(OUTX_L_A);
         x_h = read_register(OUTX_H_A);
         x = (int16_t) (x_h<<8) | (x_l); // combine high and low registers
+        //printf("%d\n", x);
         //printf("x: %d \r\n", x);
         y_l = read_register(OUTY_L_A);
         y_h = read_register(OUTY_H_A);
@@ -87,8 +101,14 @@ int main() {
         z = (int16_t) (z_h<<8) | (z_l);
         //printf("z: %d \r\n", z);
         
-        printf("%d, %d, %d \r\n", x, y, z);
+        xg = (int16_t) (read_register(OUTX_H_G)<<8) | read_register(OUTX_L_G);
+        yg = (int16_t) (read_register(OUTY_H_G)<<8) | read_register(OUTY_L_G);
+        zg = (int16_t) (read_register(OUTZ_H_G)<<8) | read_register(OUTZ_L_G);
         
-        _delay_ms(500);
+        printf("%d, %d, %d, %d, %d, %d \r\n", x, y, z, xg, yg, zg);
+        
+        // gyro showing all zero, need to write to ctrl register to activate gyro
+
+        _delay_ms(50);
     }
 }
