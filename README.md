@@ -151,6 +151,9 @@ The picture velow shows varying outputs of the imu (need to calibrate in code th
 
 <img src="image/README/1744355337046.png" width="600">
 
+![1744395971360](image/README/1744395971360.png)
+some elementary calibration for the x acceleration showing the zero bias
+
 The flex sensor is working with its ADC pin as PC0. The ADC reads around 300 if the flex sensor is bent straight, and reads 0 if the flex sensor is completely bent.
 
 <img src="image/README/1744387161125.png" height="400">
