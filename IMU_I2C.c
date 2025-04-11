@@ -19,6 +19,7 @@
 #define OUTZ_L_G 0x26
 #define OUTZ_H_G 0x27
 #define CTRL1_XL 0x10
+#define CTRL2_G 0x11
 
 
 void I2C_init() {
@@ -71,7 +72,8 @@ uint8_t read_register(uint8_t reg) {
 int main() {
     I2C_init(); 
     uart_init(); 
-    write_register(CTRL1_XL, (1<<6)); // 104 Hz set up LSM
+    write_register(CTRL1_XL, (1<<6)); // 104 Hz set up accel
+    write_register(CTRL2_G, (1<<6)); // 104 Hz set up gyro
     uint8_t x_l; 
     uint8_t x_h;
     int16_t x; 
