@@ -172,7 +172,7 @@ The ultrasensor along with the active buzzer is also working. Active buzzer is c
 
 ### Next week's plan
 
-We will test the IMU with our calibrated code. We will also finish wiriing the motors with our motor drivers, and work on the encoding part. The electronics part should be integrating together, and we'll fix any potential conflicting issues.
+We will test the IMU with our calibrated code. We will also finish wiriing the motors with our motor drivers, and work on the encoding part. The electronics part should be integrating together, and we'll fix any potential conflicting issues. We will also work on EPS32 wiresless communcation
 
 ## MVP Demo
 
