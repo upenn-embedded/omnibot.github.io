@@ -21,7 +21,6 @@ Controlling robots using traditional joysticks or remotes can often be challengi
 ### 3. System Block Diagram
 
 ![1742785425384](image/README/1742785425384.png)
-
 Our system consists of two primary subsystems: the **WearableGesture Capture System** and the **Motor Control System** for the rover robot. They utilize various communication protocols including I2C, ADC, UART, PWM, and GPIO. Additionally, regulated power supplies are integrated into both subsystems to deliver stable voltage levels.
 
 The **Wearable Gesture Capture System** is centered around FeatherS2, which manages both sensor inputs and wireless data transmission. It will handle gesture capture by interfacing with the LSM6DS0 IMU and Flex Sensor, while simultaneously transmitting control data to the rover's ESP32 module via UART.
@@ -148,11 +147,20 @@ Helena will test the flex sensor.
 
 ### Last week's progress
 
-![1744355337046](image/README/1744355337046.png)
+The picture velow shows varying outputs of the imu (need to calibrate in code the readings).
 
-varying outputs of the imu (need to calibrate in code the readings)
+<img src="image/README/1744355337046.png" width="600">
+
+The flex sensor is working with its ADC pin as PC0. The ADC reads around 300 if the flex sensor is bent straight, and reads 0 if the flex sensor is completely bent.
+
+<img src="image/README/1744387161125.png" height="400">
+<img src="image/README/1744387248505.png" height="400">
 
 ### Current state of project
+
+We've assembled the mechanical part of the rover robot, where the motor are attached to the bottom plate with the motor mounts, and the omni wheels are connected to the motor. The ultra sensor is also fixed in the bottom plate. The top plate will house the atmega and the other wiring. For the electrical part, the flex sensor is working as expected.
+
+<img src="image/README/1744386962001.png" width="700">
 
 ### Next week's plan
 

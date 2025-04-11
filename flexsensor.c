@@ -5,8 +5,6 @@
 #include <util/delay.h>
 #include <stdio.h>
 
-#define UART_BAUD_RATE      74880
-#define UART_BAUD_PRESCALER (((F_CPU / (UART_BAUD_RATE * 16UL))) - 1)
 
 
 void Initialize() {
@@ -30,7 +28,7 @@ void Initialize() {
     ADMUX &= ~(1 << MUX2);
     ADMUX &= ~(1 << MUX3);
 
-    ADCSRA |= (1 << ADATE); // Autotriggering of ADC
+    ADCSRA |= (1 << ADATE); // Auto-triggering of ADC
 
     // Free running mode ADTS[2:0] = 000
     ADCSRB &= ~(1 << ADTS0);
@@ -49,12 +47,9 @@ void Initialize() {
 
 int main(void) {
     Initialize();
-    UART_init(UART_BAUD_PRESCALER);
+    uart_init();
     while (1) {
-        char intStringBuffer[20]; // Buffer to hold the converted number
-        sprintf(intStringBuffer, "Flex ADC:\t %d", ADC); // Read flex sensor value from ADC0
-        __PRINT_NEW_LINE__ // Make space between prints
-        UART_putstring(intStringBuffer);
+        printf("Flex ADC:\t %d\n", ADC); // Read flex sensor value from ADC0
         _delay_ms(2000);
     }
 }
