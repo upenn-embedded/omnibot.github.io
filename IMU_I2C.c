@@ -109,8 +109,6 @@ int main() {
         
         printf("%d, %d, %d, %d, %d, %d \r\n", x, y, z, xg, yg, zg);
         
-        // gyro showing all zero, need to write to ctrl register to activate gyro
-
         _delay_ms(50);
     }
 }
