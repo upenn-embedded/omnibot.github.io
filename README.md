@@ -164,7 +164,7 @@ We've assembled the mechanical part of the rover robot, where the motor are atta
 
 Since the wires for our motor haven't arrived yet, we tested with the motors in the Detkin lab, and it functions properly as expected. The connections is as follows:
 
-For motor 1, AIN1 goes to PB1, AIN2 goes to PB2, SLP goes to 5V on ATMega, AOUT goes to Motor M1 and M2.The green terminal is 5V and ground. See 
+For motor 1, AIN1 goes to PB1, AIN2 goes to PB2, SLP goes to 5V on ATMega, AOUT goes to Motor M1 and M2.The green terminal is 5V and ground. See code (controllong a single Detkin motor): [https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/simple_working_motor_single.c](https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/simple_working_motor_single.c)
 
 
 ### Next week's plan
