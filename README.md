@@ -125,7 +125,7 @@ On Demo Day, we will build an obstacle course for our rover to test in. Someone 
 
 We have designed and modeled the housing for our robot. We then laser cut the parts out of acrylic.
 
-![1743784290832](image/README/1743784290832.png)
+<img src="image/README/1743784290832.png" width="700">
 
 We have also started implementing the gesture control by working with the IMU and feather S2 to determine the acceleration and rotation of the controller. The IMU is not outputting the measurements properly so it will require further debugging.
 
@@ -168,6 +168,9 @@ For motor 1, AIN1 goes to PB1, AIN2 goes to PB2, SLP goes to 5V on ATMega, AOUT 
 
 
 ### Next week's plan
+
+We will test the IMU with our calibrated code. We will also finish wiriing the motors with our motor drivers, and work on the encoding part. The electronics part should be integrating together, and we'll fix any potential conflicting issues.
+
 
 ## MVP Demo
 
