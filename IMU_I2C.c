@@ -12,7 +12,7 @@
 #define OUTY_H_A 0x2B
 #define OUTZ_L_A 0x2C
 #define OUTZ_H_A 0x2D
-#define CTRL1_XL   0x10
+#define CTRL1_XL 0x10
 
 
 void I2C_init() {

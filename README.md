@@ -124,11 +124,11 @@ On Demo Day, we will build an obstacle course for our rover to test in. Someone 
 
 ### Last week's progress
 
-We have designed and modeled the housing for our robot. We then laser cut the parts out of acrylic. 
+We have designed and modeled the housing for our robot. We then laser cut the parts out of acrylic.
 
 ![1743784290832](image/README/1743784290832.png)
 
-We have also started implementing the gesture control by working with the IMU and feather S2 to determine the acceleration and rotation of the controller. The IMU is not outputting the measurements properly so it will require further debugging. 
+We have also started implementing the gesture control by working with the IMU and feather S2 to determine the acceleration and rotation of the controller. The IMU is not outputting the measurements properly so it will require further debugging.
 
 ### Current state of project
 
@@ -138,15 +138,19 @@ The project is coming along well. We are still waiting on the bulk of our parts 
 
 Finish implementing the IMU detection. We will also start testing the flex sensor ADC. We will start assembing the physical robot using the laser cut parts and the other parts if they arrive.
 
-Vidhu will finish debugging the IMU. 
+Vidhu will finish debugging the IMU.
 
-Izzy will assemble the robot. 
+Izzy will assemble the robot.
 
-Helena will test the flex sensor. 
+Helena will test the flex sensor.
 
 ## Sprint Review #2
 
 ### Last week's progress
+
+![1744355337046](image/README/1744355337046.png)
+
+varying outputs of the imu (need to calibrate in code the readings)
 
 ### Current state of project
 
