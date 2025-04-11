@@ -158,9 +158,14 @@ The flex sensor is working with its ADC pin as PC0. The ADC reads around 300 if 
 
 ### Current state of project
 
-We've assembled the mechanical part of the rover robot, where the motor are attached to the bottom plate with the motor mounts, and the omni wheels are connected to the motor. The ultra sensor is also fixed in the bottom plate. The top plate will house the atmega and the other wiring. For the electrical part, the flex sensor is working as expected.
+We've assembled the mechanical part of the rover robot, where the motor are attached to the bottom plate with the motor mounts, and the omni wheels are connected to the motor. The ultra sensor is also fixed in the bottom plate. The top plate will house the atmega and the other wiring. For the electrical part, the flex sensor is working as expected, see code: [https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/flexsensor.c](https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/flexsensor.c)
 
 <img src="image/README/1744386962001.png" width="700">
+
+Since the wires for our motor haven't arrived yet, we tested with the motors in the Detkin lab, and it functions properly as expected. The connections is as follows:
+
+For motor 1, AIN1 goes to PB1, AIN2 goes to PB2, SLP goes to 5V on ATMega, AOUT goes to Motor M1 and M2.The green terminal is 5V and ground. See 
+
 
 ### Next week's plan
 
