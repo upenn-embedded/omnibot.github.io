@@ -194,9 +194,9 @@ We will test the IMU with our calibrated code. We will also finish wiriing the m
 
 <img src="image/README/1745003060418.png" width="850">
 
-**Izzy add explanation**
+Each motor is paried with a motor driver. Our motor drivers can take up to 2 motors, so we have 2 motor drivers in total. We connected the encoder wires to the relevant ports on the motor driver as shown below in the following tables. The motor driver is also connected to the relevant timer ports on the ATMega328PB so that the PWM signals and duty cycle can be sent through. The wiring for this is also shown in the tables below. To power our entire system, we use a 6V battery. The motor driver helps make sure that enough current is supplied to the motors. We use a 5V voltage regulator to convert the 6V voltage supply to 5V to power the ATMega328PB. The buzzer and ultrasonic sensor are also connected in this ATMega328PB and the wiring is shown in the tables below,
 
-The hardware implementation of the motors and motor drivers are given in the above tables.
+The hardware implementation of the motors, motor drivers, and sensors are given in the above tables.
 
 <img src="image/README/1744999325226.png" width="650">
 
@@ -209,9 +209,11 @@ The hardware implementation of the motors and motor drivers are given in the abo
 **IMU Calibration**: To implement the IMU so that the robot can move based off of the IMU tilting degree, we collected data for the x and y positions. With this data, we plotted the two datasets to see the differences in variables when we tilt the IMU and when it is stationary. We also observed that as the degree of tiling increases, the absolute value of the IMU output also increases.
 
 <img src="image/README/1745000343593.png" height="354">
+
 <img src="image/README/1745000376691.png" height="354">
 
 <img src="image/README/1745000364966.png" height="363">
+
 <img src="image/README/1745000391544.png" height="354">
 
 Based on the above data collected, our calibrated control for IMU is:
