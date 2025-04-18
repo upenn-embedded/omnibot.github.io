@@ -229,25 +229,27 @@ if (x > -4000 && x < 4000 && y < -7500) → "move left"
 
 ### 4. Have you achieved some or all of your Software Requirements Specification (SRS)?
 
- **SRS-01 The IMU and flex sensors shall track predefined hand gestures (forward, backward, left, and right tilt, wrist roll, and open palm) within 200ms.**
- We successfully calibrated the IMU so that the code can recognize what tilting motion is occurring. Based off of this, we are able to call forward, backward, left, or right moving functions to control the robot.
+**SRS-01 The IMU and flex sensors shall track predefined hand gestures (forward, backward, left, and right tilt, wrist roll, and open palm) within 200ms.**
+We successfully calibrated the IMU so that the code can recognize what tilting motion is occurring. Based off of this, we are able to call forward, backward, left, or right moving functions to control the robot.
 
 **SRS-02 The ATmega328PB shall process the IMU data and classify gestures based off of certain threshold values correctly.**
 **VIDHU explain ur imu code here**
 
-**SRS-05 The ultrasonic sensor shall detect obstacles within 5–100 cm. If an obstacle is within 20 cm, the robot will stop, ignore commands, and the LED will turn red. Once cleared, the robot resumes movement, and the LED turns green.**
-**helena write explain ur code here**
+**SRS-05 The ultrasonic sensor shall detect obstacles within 5–100 cm. If an obstacle is within 15 cm, the robot will stop, ignore commands, and the LED will turn red. Once cleared, the robot resumes movement, and the LED turns green.**
+The ultrasonic sensor send a high to the active buzzer when an obstacle is measured within 15 cm. Hence, if an obstacle is within 15cm of the sensor that is placed at the front of our robot, the buzzer will sound. We replaced the LED with the buzzer instead because making sound is more intuitive and noticeable. We haven't integrated the ultrasonic sensor to the bulk of our robot and the main ATmega yet.
 
 **SRS-06 The entire system will run independently on the ATmega328PB without the need of an external computer.**
-We are running our robot off of the 6V battery pack we have. We have a voltage regulator to distribute 5V to the ATMega328PB. **vidhu can u talk abt wireless communication here, we can delete if not done yet**
+We are running our robot off of the 6V battery pack we have. We have a voltage regulator to distribute 5V to the ATMega328PB. 
+
+**Vidhu can u talk abt wireless communication here, we can delete if not done yet**
 
 ### 5. Have you achieved some or all of your Hardware Requirements Specification (HRS)?
 
 **HRS-01 The rover must be able to run for at least 15 minutes continuously**
-We ran the robot continuously for 15 minutes while the motors moved at various different speeds. The robot was able to move the entire period,
+We ran the robot continuously for 15 minutes while the motors moved at various different speeds. The robot was able to move for the entire period.
 
 **HRS-02 The ultrasonic sensor must be able to accurately detect obstacles within 5-100 cm**
-The ultrasonic sensor is not currently mounted on our robot, but we configured it so that it continously checks the distance and within 10cm the robot will stop. To confirm accurate ultrasonic sensor configuration, we used uart to print to the serial terminal.
+The ultrasonic sensor is not currently mounted on our robot, but we configured it so that it continously checks the distance and within 15 cm the robot will stop. To confirm accurate ultrasonic sensor configuration, we used uart to print to the serial terminal.
 
 **HRS-03 The motors must be able to move the rover at varying speeds**
 To move the robot in the four different directions (forward, backward, left, and right), each motor moves at varying speeds. For forward and backward, we only call motors 1 and 3 to move at the same speed in opposite directions. For left and right, all three motors are driving at different duty cycles and thus different speeds to achieve the desired direction.
@@ -257,11 +259,15 @@ The rover doesn't turn to go left and right. We set the front of the robot to be
 
 ### 6. Show off the remaining elements that will make your project whole: mechanical casework, supporting graphical user interface (GUI), web portal, etc.
 
-Our current robot design involves a lot of wires and chunky breadboards. We plan to solder the wires onto a proto board to reduce the weight and bulkiness of the robot. We may also add an encasing for the battery and some mounts for the proto board. We plan to use our breadboard with the feather and IMU as our controller.
+We laser cut the main structure of the robot, where the bottom layer houses a mini breadboard for motor drivers and the ultrasnoic sensor, and the top layer houses the main ATmega with the rest of our components. We've also cutted some space on the top layer to let wires pass through neatly. Our current robot design involves a lot of wires and chunky breadboards. We plan to solder the wires onto a proto board to reduce the weight and bulkiness of the robot. We may also add an encasing for the battery and some mounts for the proto board. We plan to use our breadboard with the feather and IMU as our wireless controller.
 
 <img src="image/MVP_robot.jpg" width="350">
 
 ### 7. What is the riskiest part remaining of your project? How do you plan to de-risk this?
+
+The riskiest part remaining of our project is the integration of all hardware and software subsystems into a unified limited-size platform. Now individual modules, including the IMU gesture detection, ultrasonic obstacle detection with buzzer, and motor control, have been verified to work in isolation. However, bringing them together is a big challenge. Also, the ATmega has limited memory, while in the future, we plan to implement an integrated algorithm takes the x and y values from IMU as input parameters and control the direction of the robot dynamically. This might exceed the available space or processing capacity of the microcontroller. Additionally, the wiring complexity poses another risk. Since we're combining multiple analog and digital sensors, motor drivers, and communication modules, the physical layout is pretty dense. Risks include fragile wire connection, robot being unstable, components falling off the board etc.
+
+To de-risk this, we plan to prioritize early system integration testing, and combine two modules at a time to incrementally validate hardware interactions and memory usage. We are also using UART debug outputs to track system behavior. For the wiring complexity, we plan to solder the wires onto a proto board to minimize the robot’s weight and reduce bulk from loose wiring. We will also document pin mappings, timer usages, and modular breadboarding to ensure the design remains testable and maintainable.
 
 ### 8. What questions or help do you need from the teaching team?
 
