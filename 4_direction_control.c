@@ -51,6 +51,10 @@
  }
  
  void move_backward(uint8_t duty) {
+     //clear motor 2, not needed to run forward and backward
+     OCR3A = 0;
+     OCR3B = 0;
+     
      OCR1A = 0;
      OCR1B = duty;
  
@@ -59,6 +63,10 @@
  }
  
  void move_forward(uint8_t duty) {
+     //clear motor 2 timer 3, not needed to run forward and backward
+     OCR3A = 0;
+     OCR3B = 0;
+     
      // motor 3 needs to be inverted, 0 means 255 and 255 means 0.
      PORTD |= (1 << PD3);  
      OCR4A = 255 - duty;
@@ -106,13 +114,13 @@
  
      while (1) {
          move_forward(255);
-         _delay_ms(5000);
-         move_backward(255);
-         _delay_ms(5000);
+         _delay_ms(2000);
          move_left(255);
-         _delay_ms(5000);
+         _delay_ms(2000);
+         move_backward(255);
+         _delay_ms(2000);
          move_right(255);
-         _delay_ms(5000);
+         _delay_ms(2000);
      }
  }
  
