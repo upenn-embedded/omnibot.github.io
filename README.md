@@ -192,7 +192,7 @@ We will test the IMU with our calibrated code. We will also finish wiriing the m
 
 ### 1. Show a system block diagram & explain the hardware implementation.
 
-**Helena add block diagram**
+<img src="image/README/1745003060418.png" width="850">
 
 **Izzy add explanation**
 
@@ -239,7 +239,7 @@ We successfully calibrated the IMU so that the code can recognize what tilting m
 The ultrasonic sensor send a high to the active buzzer when an obstacle is measured within 15 cm. Hence, if an obstacle is within 15cm of the sensor that is placed at the front of our robot, the buzzer will sound. We replaced the LED with the buzzer instead because making sound is more intuitive and noticeable. We haven't integrated the ultrasonic sensor to the bulk of our robot and the main ATmega yet.
 
 **SRS-06 The entire system will run independently on the ATmega328PB without the need of an external computer.**
-We are running our robot off of the 6V battery pack we have. We have a voltage regulator to distribute 5V to the ATMega328PB. 
+We are running our robot off of the 6V battery pack we have. We have a voltage regulator to distribute 5V to the ATMega328PB.
 
 **Vidhu can u talk abt wireless communication here, we can delete if not done yet**
 
