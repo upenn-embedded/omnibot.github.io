@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.1.1">
   <diagram name="Page-1" id="FBvv6D0FgZdEssNOhiTR">
-    <mxGraphModel dx="1206" dy="651" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2336" math="0" shadow="0">
+    <mxGraphModel dx="822" dy="456" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2336" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -43,6 +43,11 @@
             <mxPoint x="970" y="280" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="w11s8igcV5odzB4H1UxP-9" value="ADC" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Hwga3ibiMN_EX1LtqwRA-5">
+          <mxGeometry x="0.0171" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="Hwga3ibiMN_EX1LtqwRA-6" value="3 x Motor Drivers&lt;div&gt;(Motor Control)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1100" y="250" width="120" height="60" as="geometry" />
         </mxCell>
@@ -76,7 +81,7 @@
             <mxPoint x="915" y="330" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Hwga3ibiMN_EX1LtqwRA-17" value="I2C" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Hwga3ibiMN_EX1LtqwRA-16" vertex="1" connectable="0">
+        <mxCell id="Hwga3ibiMN_EX1LtqwRA-17" value="ESP NOW" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Hwga3ibiMN_EX1LtqwRA-16" vertex="1" connectable="0">
           <mxGeometry x="0.2053" y="4" relative="1" as="geometry">
             <mxPoint x="-16" y="4" as="offset" />
           </mxGeometry>
@@ -126,7 +131,7 @@
             <mxPoint x="540" y="550" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="w11s8igcV5odzB4H1UxP-8" value="ADC" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="w11s8igcV5odzB4H1UxP-7">
+        <mxCell id="w11s8igcV5odzB4H1UxP-8" value="GPIO" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="w11s8igcV5odzB4H1UxP-7">
           <mxGeometry x="-0.2286" relative="1" as="geometry">
             <mxPoint x="7" as="offset" />
           </mxGeometry>
