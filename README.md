@@ -223,7 +223,12 @@ if (x > 7500 && y > -4000 && y < 4000) → "move backward"
 if (x > -4000 && x < 4000 && y > 7500) → "move right"
 if (x > -4000 && x < 4000 && y < -7500) → "move left"
 
-**Comunication - VIDHU**
+**Comunication**
+The ESP32 modules are able to speak to each other wirelessly over the espressif ESP-NOW protocol. Using the esp now driver from espressif we are able to send data between the two boards based on the IMU direction.
+
+We are using I2C to communicate between the ATMega328pb and the IMU. The atmega is acting as the controller and reading the registers that contain the gyroscope and acceleration data on the IMU.
+
+For the AtMega and ESP32 board to send data, we are working on integrating SPI to send the IMU data. Presently the SPI is not functional so the board are speaking using GPIO and a resistive ladder with an ADC. The feather will set different points on the resistive ladder high while the atmega ADC reads the voltage at the bottom. This allows the Atmega to obtain forward, backwards, left, and right direction information.
 
 ### **3. Demo your device.**
 
@@ -235,15 +240,13 @@ if (x > -4000 && x < 4000 && y < -7500) → "move left"
 We successfully calibrated the IMU so that the code can recognize what tilting motion is occurring. Based off of this, we are able to call forward, backward, left, or right moving functions to control the robot.
 
 **SRS-02 The ATmega328PB shall process the IMU data and classify gestures based off of certain threshold values correctly.**
-**VIDHU explain ur imu code here**
+Our IMU is able to send gesture data to the ATMega. The ATmega is then able to classify the gesture data into four broad categories based on calibration data we measured and obtained.
 
 **SRS-05 The ultrasonic sensor shall detect obstacles within 5–100 cm. If an obstacle is within 15 cm, the robot will stop, ignore commands, and the LED will turn red. Once cleared, the robot resumes movement, and the LED turns green.**
 The ultrasonic sensor send a high to the active buzzer when an obstacle is measured within 15 cm. Hence, if an obstacle is within 15cm of the sensor that is placed at the front of our robot, the buzzer will sound. We replaced the LED with the buzzer instead because making sound is more intuitive and noticeable. We haven't integrated the ultrasonic sensor to the bulk of our robot and the main ATmega yet.
 
 **SRS-06 The entire system will run independently on the ATmega328PB without the need of an external computer.**
 We are running our robot off of the 6V battery pack we have. We have a voltage regulator to distribute 5V to the ATMega328PB.
-
-**Vidhu can u talk abt wireless communication here, we can delete if not done yet**
 
 ### 5. Have you achieved some or all of your Hardware Requirements Specification (HRS)?
 
