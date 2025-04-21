@@ -1,34 +1,41 @@
 #define F_CPU 16000000UL
 #include <avr/io.h>
 #include <util/delay.h>
-#include "uart.h" // or use your own USART init & putchar
+#include "uart.h" 
 
-void SPI_MasterInit() {
-    DDRB |= (1<<PB3)|(1<<PB5)|(1<<PB2); // MOSI, SCK, CS as output
-    DDRB &= ~(1<<PB4); // MISO as input
-    SPCR0 = (1<<SPE)|(1<<MSTR)|(1<<SPR0); // Enable SPI, Master, clk/16
-    PORTB |= (1<<PB2); // Set CS high (inactive)
+
+    // set up SPI1 as slave
+    // using SPI1 because timers are using PB2
+    // need to solder port e
+    // set CS as input
+
+void SPI_SlaveInit(void)
+{
+   /* Set MISO output, all others input */
+   DDRC = (1<<PC0); // MISO / SDO
+   DDRC &= ~(1<<PC1); //SCK
+   DDRE &= ~(1<<PE3); //MOSI / SDI
+   DDRE &= ~(1<<PE2); //CS
+   /* Enable SPI */
+   SPCR1 = (1<<SPE);
+   // don't set mstr bit
 }
-
-uint8_t SPI_RxByte() {
-    SPDR0 = 0x15; // Send dummy byte
-    while (!(SPSR0 & (1<<SPIF)));
-    return SPDR0;
+char SPI_SlaveReceive(void)
+{
+   /* Wait for reception complete */
+   while(!(SPSR1 & (1<<SPIF)));
+   /* Return Data Register */
+   return SPDR1;
 }
-
 int main() {
     uart_init();
-    SPI_MasterInit();
+    SPI_SlaveInit(); 
+    
+    uint8_t rxData; 
 
-    while (1) {
-        PORTB &= ~(1<<PB2); // CS low
-        _delay_us(10);      // Small delay before transaction
-
-        uint8_t data = SPI_RxByte(); // Read 1 byte
-
-        PORTB |= (1<<PB2); // CS high
-        printf("Received: %d\n", data);
-
-        _delay_ms(500);
+    while (1) { 
+        SPDR1 = 0x22; // data to send to esp32
+        rxData = SPI_SlaveReceive();
+        printf("%d\n", rxData);
     }
 }
