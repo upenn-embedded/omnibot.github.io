@@ -39,12 +39,8 @@ int main(void) {
         SPDR1 = 0x00;
         yh = SPI_SlaveReceive();  // LOW byte of Y
     
-        // Combine correctly: high byte << 8 | low byte
-        // xa = (int16_t)((xl << 8) | xh);
-        // ya = (int16_t)((yl << 8) | yh);
-
-        xa = (int16_t)((xl << 8) | xh);  // Assuming xl = MSB, xh = LSB
-        ya = (int16_t)((yh << 8) | yl);  // Swapped for consistency if ordering is reversed
+        xa = (int16_t)((xl << 8) | xh);
+        ya = (int16_t)((yl << 8) | yh);
 
     
         // Debug output for raw bytes and reconstructed values
