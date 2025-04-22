@@ -1,67 +1,52 @@
-#include "SPI.h"
-#include <esp_now.h>
-#include <esp_wifi.h>
-#include <WiFi.h>
+#define F_CPU 16000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+#include <stdio.h>
+#include "uart.h" 
 
-// This is the receiver on the robot
-
-typedef struct data_packet {
-  int16_t xa;
-  int16_t ya;
-} data_packet;
-
-data_packet data;
-
-void data_received(const esp_now_recv_info_t *recv_info, const uint8_t *incomingData, int len) {
-  memcpy(&data, incomingData, sizeof(data));
-
-  Serial.print("Received X: ");
-  Serial.print(data.xa);
-  Serial.print(" | Y: ");
-  Serial.println(data.ya);
+void SPI_SlaveInit(void) {
+    DDRC |= (1<<PC0);   // MISO output
+    DDRC &= ~(1<<PC1);  // SCK input
+    DDRE &= ~(1<<PE3);  // MOSI input
+    DDRE &= ~(1<<PE2);  // SS input
+    SPCR1 = (1<<SPE);   // Enable SPI1
 }
 
-
-uint8_t rxData;
-
-void setup() {
-  Serial.begin(115200);
-  SPI.begin();
-
-  WiFi.mode(WIFI_STA);
-
-  pinMode(SS, OUTPUT);
-  digitalWrite(SS, HIGH); 
-
-  if (esp_now_init() != ESP_OK) {
-    Serial.println("ESP-NOW init failed");
-    return;
-  }
-
-  esp_now_register_recv_cb(data_received);
+uint8_t SPI_SlaveReceive(void) {
+    while (!(SPSR1 & (1<<SPIF))); // Wait for data
+    return SPDR1;
 }
 
-uint8_t firstByte(int16_t var) {
-  return (uint8_t)(var >> 8 & 0xFF);
+int main(void) {
+    uart_init();
+    SPI_SlaveInit(); 
+
+    uint8_t xl, xh, yl, yh;
+    int16_t xa, ya;
+    
+    printf("start\n");
+    
+    while (1) {
+    printf("waiting xl\n");
+    SPDR1 = 0x00;
+    xl = SPI_SlaveReceive();
+    
+    printf("waiting xh\n");
+    SPDR1 = 0x00;
+    xh = SPI_SlaveReceive();
+    
+    printf("waiting yl\n");
+    SPDR1 = 0x00;
+    yl = SPI_SlaveReceive();
+    
+    printf("waiting yh\n");
+    SPDR1 = 0x00;
+    yh = SPI_SlaveReceive();
+    
+    xa = (int16_t)((xh << 8) | xl);
+    ya = (int16_t)((yh << 8) | yl);
+
+    printf("x: %d | y: %d\r\n", xa, ya);
 }
 
-uint8_t lastByte(int16_t var) {
-  return (uint8_t)(var & 0xFF);
 }
-
-void loop() {
-  uint8_t xl = firstByte(data.xa);
-  uint8_t xh = lastByte(data.xa);
-  uint8_t yl = firstByte(data.ya);
-  uint8_t yh = lastByte(data.ya);
-
-  digitalWrite(SS, LOW);              // 🔽 Only ONE LOW
-  SPI.transfer(xl);
-  SPI.transfer(xh);
-  SPI.transfer(yl);
-  SPI.transfer(yh);
-  digitalWrite(SS, HIGH);             // 🔼 One HIGH after all 4 bytes
-
-  delay(100); // More frequent transfer for smoother SPI reception
-}
-
