@@ -301,6 +301,17 @@ If you’ve never made a GitHub pages website before, you can follow this webpag
 ### 3. Results
 
 *What were your results? Namely, what was the final solution/design to your problem?*
+Our final robot consisted of a three-wheel omnidrive base with an ultrasonic sensor. This robot is controlled wirelessly based off of the rotation and movement of the controller. Here is the general breakdown of the different components on our robot.
+
+**Motor Control**
+
+The three motors on our robot are controlled through PWM signals using Timers 1, 3, and 4 from the ATMega328PB. Depending on which OCRA or OCRB the PWM signal is fed in, the motor will either rotate counter clockwise or clockwise. The speed of the motors can be controlled through changing the duty cycle. The advantage of our omniwheels is that our robot does not need to rotate to change directions; it can easily shift between forward, backward, left, and right.
+
+**Communication**
+The IMU is collecting the accelerometer data from the controller. This data is sent processed in the Feather ESP32 V2 and sent to the Feather ESP32 S2 on the robot, wirelessly, through the ESP-NOW protocol.
+
+**Controller**
+The controller is composed of the IMU, which is communicating the accelerometer data to the Feather ESP32 V2 via I2C. This data was calibrated through processing several datasets of both the x and y accelerometer data depending on the tilting of the IMU. Once the IMU is calibrated, then the robot can correctly identify the tilt of the controller and act accordingly.
 
 #### 3.1 Software Requirements Specification (SRS) Results
 
@@ -339,6 +350,7 @@ Reflect on your project. Some questions to address:
 * What could have been done differently?
 * Did you encounter obstacles that you didn’t anticipate?
 * What could be a next step for this project?
+The next steps of the project can include integrating a smoother transition between different moving states of the robot. Currently, it is able to move forward, backward, left, and right and transition smoothly between these states. If we study the kinematics of a three wheel omnidrive robot more, we can implement smoother control of the robot. We can probably take the x and y vectors sent over by the IMU, and use a formula to calculate the direction of the controller, from this we can adjust the PWM and duty cycle of each motor so the robot moves in the desired direction.
 
 ## References
 
