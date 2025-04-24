@@ -1,3 +1,6 @@
+// Uses timer 2 to send pulse. Ultrasonic sensor to PC2 (Trig) and PC3 (Echo)
+// Uses PD6 for buzzer
+
 #define F_CPU 16000000UL
 #include "uart.h"
 #include <avr/io.h>
@@ -32,7 +35,6 @@ void send_pulse() {
     _delay_us(10);
     PORTC &= ~(1 << TRIG_PIN);
 }
-
 
 uint16_t measure_distance() {
     uint16_t ticks;

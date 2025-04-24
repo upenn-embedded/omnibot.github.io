@@ -131,33 +131,7 @@ uint8_t SPI_SlaveReceive(void) {
      OCR4A = 0;       // Start with motor off
  }
  
- //void motor3_forward() {
- //    PORTD |= (1 << PD1);   // AIN1 = HIGH
- //    PORTD &= ~(1 << PD3);  // AIN2 = LOW
- //}
- //void motor3_reverse() {
- //    PORTD &= ~(1 << PD1);  // AIN1 = LOW
- //    PORTD &= ~(1 << PD3);  // AIN2 = HIGH
- //}
- //void motor3_stop() {
- //    PORTD &= ~(1 << PD1);  // AIN1 = LOW
- //    PORTD &= ~(1 << PD3);  // AIN2 = LOW ? coast
- //}
-// void reset_motors() {
-//     // Motor A (Timer1)
-//     OCR1A = 0;
-//     OCR1B = 0;
-// 
-//     // Motor B (Timer3)
-//     OCR3A = 0;
-//     OCR3B = 0;
-// //    PORTD |= (1 << PD4); 
-// 
-//     // Motor C (Timer4)
-//     OCR4A = 0;
-// //    PORTD |= (1 << PD3); 
-// }
-// 
+ 
   void stop_motors_AC() {
      if (current_direction != DIR_STOP) {
         OCR1A = 0;
@@ -210,15 +184,6 @@ uint8_t SPI_SlaveReceive(void) {
      
      OCR1A = 0;
      OCR1B = 0;
-     
-//     while (1) {
-//         OCR1A = 0;
-//         OCR1B = 48;
-//         _delay_ms(2000);
-//         OCR1A = 48;
-//         OCR1B = 0;
-//         _delay_ms(500);
-//     }
  }
  
  void move_left() {
@@ -234,15 +199,6 @@ uint8_t SPI_SlaveReceive(void) {
      OCR3A = 255-49;
      
      PORTD &= ~(1 << PD4); 
-//     while (1) {
-//         PORTD &= ~(1 << PD3);  // DIR LOW
-//         OCR4A = 55;
-//         _delay_ms(1500);
-//         
-//         PORTD |= (1 << PD3); 
-//         OCR4A = 185;
-//         _delay_ms(500);
-//     }
  }
  
 
@@ -268,8 +224,6 @@ int main(void) {
     uint8_t xl, xh, yl, yh;
     int16_t x, y;
     
-//    printf("start\n");
-    
     while (1) {       
         SPDR1 = 0x00;
         xl = SPI_SlaveReceive();  // HIGH byte of X
@@ -285,38 +239,41 @@ int main(void) {
     
         x = (int16_t)((xh << 8) | xl);
         y = (int16_t)((yh << 8) | yl);
-        
-        //testing motors
-//        move_right();
-//        _delay_ms(500);
+
         
         send_pulse();
         uint16_t dist = measure_distance();
-        control_buzzer(dist);
-        
-        
-    
-        // Debug output for raw bytes and reconstructed values
-//        printf("Raw Bytes → XL: %u  XH: %u | YL: %u  YH: %u\r\n", xl, xh, yl, yh);
-//        printf("Parsed Accel → X: %d | Y: %d\r\n", x, y);
-        
-//        if (x < -7500 && y > -4000 && y < 4000) {
-////             printf("forward\n");
-//             move_forward(255);
-////             led();
-//         } else if (x > 7500 && y > -4000 && y < 4000) {
-////             printf("backward\n");
-//             move_backward(255);
-//         } else if (x > -4000 && x < 4000 && y > 7500) {
-////             printf("right\n");
-//             move_right();
-//         } else if (x > -4000 && x < 4000 && y < -7500) {
-////             printf("left\n");
-//             move_left();
-//         } else {
-////             printf("stop\n");
-//             stop_motors_AC();
-//         }
+
+        uint16_t dist = measure_distance();
+
+        if (dist < 20) {
+            PORTD |= (1 << BUZZER_PIN);  // Buzzer ON
+
+            if (x > 7500 && y > -4000 && y < 4000) {
+                move_backward(255);
+            } else if (x > -4000 && x < 4000 && y > 7500) {
+                move_right();
+            } else if (x > -4000 && x < 4000 && y < -7500) {
+                move_left();
+            } else {
+                stop_motors_AC();  // Forward or no clear gesture → STOP
+            }
+
+        } else {
+            PORTD &= ~(1 << BUZZER_PIN);  // Buzzer OFF
+
+            if (x < -7500 && y > -4000 && y < 4000) {
+                move_forward(255);
+            } else if (x > 7500 && y > -4000 && y < 4000) {
+                move_backward(255);
+            } else if (x > -4000 && x < 4000 && y > 7500) {
+                move_right();
+            } else if (x > -4000 && x < 4000 && y < -7500) {
+                move_left();
+            } else {
+                stop_motors_AC();
+            }
+        }
         
         _delay_ms(1000);
     }    
