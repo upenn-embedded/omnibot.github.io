@@ -243,9 +243,7 @@ int main(void) {
         
         send_pulse();
         uint16_t dist = measure_distance();
-
-        uint16_t dist = measure_distance();
-
+        
         if (dist < 20) {
             PORTD |= (1 << BUZZER_PIN);  // Buzzer ON
 
