@@ -298,6 +298,30 @@ If you’ve never made a GitHub pages website before, you can follow this webpag
 
 *Include photos of your device from a few angles. If you have a casework, show both the exterior and interior (where the good EE bits are!).*
 
+Overall Look:
+
+![1745614107304](image/README/1745614107304.jpg)
+
+Front view:
+
+![1745614126737](image/README/1745614126737.jpg)
+
+Back view:
+
+![1745614136126](image/README/1745614136126.jpg)
+
+Top view:
+
+![1745614149322](image/README/1745614149322.jpg)
+
+Bottom Layer Details (Motors):
+
+![1745614163817](image/README/1745614163817.jpg)
+
+IMU Detail:
+
+![1745614186613](image/README/1745614186613.jpg)
+
 ### 3. Results
 
 *What were your results? Namely, what was the final solution/design to your problem?*
