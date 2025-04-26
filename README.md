@@ -255,7 +255,9 @@ if (x > -4000 && x < 4000 && y < -7500) → "move left"
 
 ### **Final OmniBot**
 
-<iframe width="700" height="400" src="https://youtu.be/BRfWkiYQ0kc" frameborder="0" allowfullscreen></iframe>
+<div align="center">
+  <iframe width="700" height="400" src="https://www.youtube.com/embed/BRfWkiYQ0kc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 **Comunication**
 The ESP32 modules are able to speak to each other wirelessly over the espressif ESP-NOW protocol. Using the esp now driver from espressif we are able to send data between the two boards based on the IMU direction.
@@ -274,9 +276,6 @@ For the AtMega and ESP32 board to send data, we are working on integrating SPI t
 <img src="image/MVP_robot.jpg" width="350">
 
 
-### 1. Video
-
-[https://drive.google.com/file/d/17KMIO_NmtMM-GU8ButMoWfOn6z9yP_SF/view?usp=sharing](https://drive.google.com/file/d/17KMIO_NmtMM-GU8ButMoWfOn6z9yP_SF/view?usp=sharing)
 
 ### 2. Images
 
