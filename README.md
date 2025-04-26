@@ -1,4 +1,4 @@
-<div id="slideshow" style="width:100%; max-width:600px; position:relative;">
+<div id="slideshow" style="width:100%; max-width:700px; margin: auto; position: relative; height: 400px;">
   <img src="image\README\1745614126737.jpg" style="width:100%; position:absolute; opacity:1; transition: opacity 1s;">
   <img src="image\README\1745614136126.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
   <img src="image\README\1745614149322.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
@@ -15,6 +15,8 @@ setInterval(() => {
   slides[current].style.opacity = 1;
 }, 3000); // changes every 3 seconds
 </script>
+
+<br><br><br>
 
 # final-project-OmniBot
     * Team Number: Team 9
