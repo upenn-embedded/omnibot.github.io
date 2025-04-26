@@ -1,12 +1,27 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/WXeqVgks)
+<div id="slideshow" style="width:100%; max-width:600px; position:relative;">
+  <img src="image\README\1745614126737.jpg" style="width:100%; position:absolute; opacity:1; transition: opacity 1s;">
+  <img src="image\README\1745614136126.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
+  <img src="image\README\1745614149322.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
+  <img src="image\README\1745614163817.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
+  <img src="image\README\1745614170997.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
+</div>
 
-# final-project-skeleton
+<script>
+let slides = document.querySelectorAll('#slideshow img');
+let current = 0;
+setInterval(() => {
+  slides[current].style.opacity = 0;
+  current = (current + 1) % slides.length;
+  slides[current].style.opacity = 1;
+}, 3000); // changes every 3 seconds
+</script>
 
-* Team Number: Team 9
-* Team Name: Oranges
-* Team Members: Izzy, Helena, and Vidhu
-* GitHub Repository URL: [https://github.com/upenn-embedded/final-project-s25-oranges](https://github.com/upenn-embedded/final-project-s25-oranges)
-* GitHub Pages Website URL: [for final submission]
+# final-project-OmniBot
+    * Team Number: Team 9
+    * Team Name: Oranges
+    * Team Members: Izzy, Helena, and Vidhu
+    * GitHub Repository URL: [https://github.com/upenn-embedded/final-project-s25-oranges](https://github.com/upenn-embedded/final-project-s25-oranges)
+    * GitHub Pages Website URL: https://github.com/IzzyHuang215/ihuangg_omnibot.github.io.git
 
 ## Final Project Proposal
 
