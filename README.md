@@ -1,4 +1,4 @@
-<div id="slideshow" style="width:100%; max-width:700px; margin: auto; position: relative; height: 400px;">
+<div id="slideshow" style="width:100%; max-width:700px; margin: auto; position: relative; height: 450px;">
   <img src="image\README\1745614126737.jpg" style="width:100%; position:absolute; opacity:1; transition: opacity 1s;">
   <img src="image\README\1745614136126.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
   <img src="image\README\1745614149322.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
@@ -29,7 +29,7 @@ setInterval(() => {
 
 ### 1. Abstract
 
-Our final project is a gesture controlled rover robot designed to enable users to control a mobile robot’s movement using intuitive hand gestures. The robot will use omni wheels for enhanced maneuverability, allowing for movement in multiple directions (forward, backward, lateral, and diagonal). Additionally, the rover will include a collision detection system using an ultrasonic sensor that triggers a buzzer/LED when obstacles are detected.
+Our final project is a gesture controlled omnidirectional robot designed to enable users to control a mobile robot’s movement using intuitive hand gestures. The robot will use omni wheels for enhanced maneuverability, allowing for movement in multiple directions (forward, backward, lateral, and diagonal) without the need for steering or reorientation. This is unlike traditional wheels, which require turning to change direction. Additionally, the OmniBot will include a collision detection system using an ultrasonic sensor that triggers a buzzer when obstacles are detected.
 
 ### 2. Motivation
 
@@ -38,86 +38,108 @@ Controlling robots using traditional joysticks or remotes can often be challengi
 ### 3. System Block Diagram
 
 ![1742785425384](image/README/1742785425384.png)
-Our system consists of two primary subsystems: the **WearableGesture Capture System** and the **Motor Control System** for the rover robot. They utilize various communication protocols including I2C, ADC, UART, PWM, and GPIO. Additionally, regulated power supplies are integrated into both subsystems to deliver stable voltage levels.
+Our system consists of two primary subsystems: the **Gesture Capture System** and the **Motor Control System** for the OmniBot. They utilize various communication protocols including I2C, ADC, UART, PWM, and GPIO. Additionally, regulated power supplies are integrated into both subsystems to deliver stable voltage levels.
 
-The **Wearable Gesture Capture System** is centered around FeatherS2, which manages both sensor inputs and wireless data transmission. It will handle gesture capture by interfacing with the LSM6DS0 IMU and Flex Sensor, while simultaneously transmitting control data to the rover's ESP32 module via UART.
+The **Gesture Capture System** is centered around FeatherV2/FeatherS2, which manages both sensor inputs and wireless data transmission. It will handle gesture capture by interfacing with the LSM6DS0 IMU and Flex Sensor, while simultaneously transmitting control data to the OmniBot's ESP32 module via UART.
 
-LSM6DS0 IMU is responsible for detecting hand motion and orientation. It uses the I2C to communicate with FeatherS2. The Flex Sensor detects the degree of bending in the user's fingers, then it generates an analog voltage that is read directly by the FeatherS2’s ADC. The ADC values are mapped to speed control commands, allowing different modes of motor speed with intuitive control.
+LSM6DS0 IMU is responsible for detecting hand motion and orientation. It uses the I2C to communicate with FeatherV2. The Flex Sensor detects the degree of bending in the user's fingers, then it generates an analog voltage that is read directly by the FeatherV2’s ADC. The ADC values are mapped to speed control commands, allowing different modes of motor speed with intuitive control. A FeatherS2 will be used to receive the data from the FeatherV2 via ESP-NOW and transmit the IMU values to the ATMega via SPI.
 
-The **Rover Robot Motor Control System** is built around the ATmega328PB microcontroller, which handles motor control, obstacle detection, and alert systems. FeatherS2 here acts as a wireless receiver, communicating with the FeatherS2 in the wearable controller via UART to receive gesture and speed control data.
+The **Motor Control System** is built around the ATmega328PB microcontroller, which handles motor control, obstacle detection, and alert systems. The FeatherS2 is mounted on the OmniBot and is the wireless receiver, communicating with the FeatherV2 on the wearable controller.
 
-Motor control is achieved using three Motor Drivers that interface with ATmega. The motor drivers then manage the three Omni Wheels respectively, enabling movement in multiple directions. The ATmega generates PWM signals that control the speed and direction of the motors, with the PWM duty cycle dynamically adjusted based on the bending angle detected from the Flex Sensor and the hand motion detected from the IMU Module.
+Motor control is achieved using two motor drivers (each driver can control 2 motors) that interface with ATMega. The motor drivers then manage the three omni wheels respectively, enabling movement in multiple directions. The ATMega generates PWM signals that control the direction of the motors and the speed is controlled through the duty cycle. The duty cycle will dynamically adjust based on the bending angle from the flex sensor and motor direction will change depending on the hand motion detected from the IMU.
 
-The rover also features an Ultrasonic Sensor for obstacle detection. The sensor communicates with ATmega using GPIO pins for both the Trigger and Echo signals. When an obstacle is detected within a specified range, the ATmega will activate the Buzzer via a dedicated GPIO output, alerting the user of the presence of an obstacle.
+The rover also features an ultrasonic sensor for obstacle detection. The sensor communicates with ATMega using GPIO pins for both the trigger and echo signals. When an obstacle is detected within a specified range, the ATMega will activate a buzzer via a dedicated GPIO output, alerting the user of the presence of an obstacle.
 
-For the communication protocol, I2C links LSM6DS0 IMU to FeatherS2. The ADC on FeatherS2 is used to read variable voltage signals from the Flex Sensor. UART is employed for wireless communication between the two FeatherS2 boards. ATmega generates PWM signals to modulate motor speed and direction. GPIO connections are used for the ultrasonic sensor and the buzzer.
+For the communication protocol, I2C links LSM6DS0 IMU to FeatherV2. The ADC on FeatherV2 is used to read variable voltage signals from the Flex Sensor. ESP-NOW is employed for wireless communication between the two Feather boards. ATMega generates PWM signals at different duty cycles to modulate motor speed and direction. GPIO connections are used for the ultrasonic sensor and the buzzer.
 
-For power regulation, FeatherS2 requires a 3.3V regulated power supply. Meanwhile, the 5V regulated power supply in the rover system delivers stable power to the ATmega328PB, motor drivers, ultrasonic sensor, and buzzer. This separation of power systems ensures reliable performance, minimizes electrical noise, and protects components from voltage instability.
+For power regulation, the Feather requires a 3.3V regulated power supply. Meanwhile, the 5V regulated power supply in the rover system delivers stable power to the ATMega328PB, motor drivers, ultrasonic sensor, and buzzer. A 6V battery is used to power our entire system. The motors we use are 6V and are able to pull as much current as needed from the battery pack. A 5V voltage regulator is used to buck down the 6V to 5V for our ATMega and peripherals. This separation of power systems ensures reliable performance, minimizes electrical noise, and protects components from voltage instability.
 
 ### 4. Design Sketches
 
 ![1742787555224](image/README/1742787555224.png)
 
-For our design, the robot's base uses omni wheels for enhanced motion in multiple directions. The use of an ultrasonic sensor for obstacle detection ensures improved environmental awareness. The top layer of the robot houses all essential electronics, including the ATmega board, motor drivers, and power distribution system. On the glove controller, the IMU is positioned centrally on the back of the hand to accurately detect wrist movements, and the flex sensors are embedded along the fingers to track bending angles for speed control. We also plan to employ 3D printing and laser cutting for the motor mounts, structural supports, and the robot’s chassis.
+For our design, the OmniBot's base uses omni wheels for enhanced motion in multiple directions. The use of an ultrasonic sensor for obstacle detection ensures improved environmental awareness. The top layer of the robot houses all essential electronics, including the ATMega board, motor drivers, and power distribution system. On the glove controller, the IMU is positioned centrally on the back of the hand to accurately detect wrist movements, and the flex sensors are embedded along the fingers to track bending angles for speed control.
 
 ### 5. Software Requirements Specification (SRS)
 
-The software for the gesture-controlled rover robot will be able to process real-time motion and detect different gestures, wirelessly transmit commands, and be able to precisely control the rover. This can be broken down into three different subsystems: wearble gesture controller, rover control system, and collision detection system. The wearable gesture controller detects user gestures and transmits these movemements wirelessly. The rover control system will be able to interrept these commands and control the rover's movement using predefined gesture mappings. The collision detection system monitors the rover/s surroundings and alerts the users of any obstacles. Key requirements include gesture recognition accuracy, reliable wireless communication, precise motor control, and responsive collision detection
+The software for the gesture-controlled rover robot will be able to process real-time motion and detect different gestures, wirelessly transmit commands, and be able to precisely control the rover. This can be broken down into three different subsystems:  gesture controller, rover control system, and collision detection system. The wearable gesture controller detects user gestures and transmits these movements wirelessly. The rover control system will be able to intercept these commands and control the rover's movement using predefined gesture mappings. The collision detection system monitors the rover/s surroundings and alerts the users of any obstacles. Key requirements include gesture recognition accuracy, reliable wireless communication, precise motor control, and responsive collision detection
 
 **5.1 Definitions, Abbreviations**
 
-IMU (Inertial Measurement Unit): A sensor that combines an accelerometer and a gyroscope to track orientation, acceleration, and angular velocity. In this project, it is used to detect hand gestures such as tilts and wrist rolls.
+*IMU (Inertial Measurement Unit):* A sensor that combines an accelerometer and a gyroscope to track orientation, acceleration, and angular velocity. In this project, it is used to detect hand gestures such as tilts and wrist rolls.
 
-Flex sensor: A sensor that changes its resistance based on the amount of bending or flexing. It is used here to detect finger position and aid in gesture control.
+*Flex sensor:* A sensor that changes its resistance based on the amount of bending or flexing. It is used here to detect finger position and aid in gesture control.
 
-Feather ESP32: The wireless communication module using SPI to transmit data between the wearable controller and the robot.
+*Feather ESP32:* The wireless communication module using ESP-NOW to transmit data between the wearable controller and the robot.
 
-Ultrasonic Sensor: A distance sensor that uses sound waves to detect objects. It is used here for obstacle detection on the robot.
+*Ultrasonic Sensor:* A distance sensor that uses sound waves to detect objects. It is used here for obstacle detection on the robot.
 
 **5.2 Functionality**
 
-| ID     | Description                                                                                                                                                                                                                        |
-| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SRS-01 | The IMU and flex sensors shall track predefined hand gestures (forward, backward, left, and right tilt, wrist roll, and open palm) within 200ms.                                                                                  |
-| SRS-02 | The ATmega328PB shall process the IMU data and classify gestures based off of certain threshold values correctly.                                                                                                                  |
-| SRS-03 | The ESP32 will transmit gesture data from the user to the robot with latency < 200ms.                                                                                                                                              |
-| SRS-04 | The robot shall have three speed modes controlled based on the angular velocity detected from wrist rolling.                                                                                                                       |
-| SRS-05 | The ultrasonic sensor shall detect obstacles within 5–100 cm. If an obstacle is within 20 cm, the robot will stop, ignore commands, and the LED will turn red. Once cleared, the robot resumes movement, and the LED turns green. |
-| SRS-06 | The entire system will run independently on the ATmega328PB without the need of an external computer.                                                                                                                              |
-| SRS-07 | If wireless connection is lost, the robot shall automatically stop within 500ms.                                                                                                                                                   |
+<table>
+  <thead>
+    <tr>
+      <th style="width:100px;">ID</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SRS-01</td>
+      <td>The IMU and flex sensors shall track predefined hand gestures (forward, backward, left, and right tilt, wrist roll, and open palm) within 200ms.</td>
+    </tr>
+    <tr>
+      <td>SRS-02</td>
+      <td>The ATmega328PB shall process the IMU data and classify gestures based off of certain threshold values correctly.</td>
+    </tr>
+    <tr>
+      <td>SRS-03</td>
+      <td>The ESP32 will transmit gesture data from the user to the robot with latency &lt; 200ms.</td>
+    </tr>
+    <tr>
+      <td>SRS-04</td>
+      <td>The robot shall have three speed modes controlled based on the angular velocity detected from wrist rolling.</td>
+    </tr>
+    <tr>
+      <td>SRS-05</td>
+      <td>The ultrasonic sensor shall detect obstacles within 5–100 cm. If an obstacle is within 20 cm, the robot will stop, ignore commands, and the LED will turn red. Once cleared, the robot resumes movement, and the LED turns green.</td>
+    </tr>
+    <tr>
+      <td>SRS-06</td>
+      <td>The entire system will run independently on the ATmega328PB without the need of an external computer.</td>
+    </tr>
+    <tr>
+      <td>SRS-07</td>
+      <td>If wireless connection is lost, the robot shall automatically stop within 500ms.</td>
+    </tr>
+  </tbody>
+</table>
+
 
 ### 6. Hardware Requirements Specification (HRS)
 
 The hardware for the gesture controller rover will allow it to move freely in many directions as well as sense the motion of the controller. Additionally, it will be able to sense obstacles ahead using an ultrasonic sensor.
 
 **6.1 Definitions, Abbreviations**
+*Feather ESP32:* Board for wireless communication
 
-Here, you will define any special terms, acronyms, or abbreviations you plan to use for hardware
-
-Feather ESP32: Board for wireless communication
-
-ATMega328pb: Main microcontroller on the rover
-
-IMU: Inertial Measurement Unit: Sensor able to detect rotations and accelerations
+*ATMega328PB:* Main microcontroller on the rover
 
 **6.2 Functionality**
 
 | ID     | Description                                                                                              |
 | ------ | -------------------------------------------------------------------------------------------------------- |
-| HRS-01 | The rover must be able to run for at least 15 minutes continuously                                       |
-| HRS-02 | The ultrasonic sensor must be able to accurately detect obstacles within 5-100 cm                        |
-| HRS-03 | The motors must be able to move the rover at varying speeds                                              |
-| HRS-04 | The rover must be able to move in perpendicular directions without needing to turn using the omni wheels |
-| HRS-05 | The flex sensor must be able to control the speed of the rover using an ADC                              |
-| HRS-06 | Motion of the IMU must translate into motion of the rover                                                |
-| HRS-07 | The two ESP32 boards must be able to wirelessly communicate with each other directly                     |
-| HRS-08 | The ESP32 and ATMega328pb must be able to communicate using SPI                                          |
+| HRS-01 | The rover must be able to run for at least 15 minutes continuously.                                       |
+| HRS-02 | The ultrasonic sensor must be able to accurately detect obstacles within 5-100 cm.                       |
+| HRS-03 | The motors must be able to move the rover at varying speeds.                                              |
+| HRS-04 | The rover must be able to move in perpendicular directions without needing to turn using the omni wheels. |
+| HRS-05 | The flex sensor must be able to control the speed of the rover using an ADC.                              |
+| HRS-06 | Motion of the IMU must translate into motion of the rover.                                                |
+| HRS-07 | The two ESP32 boards must be able to wirelessly communicate with each other directly.                     |
+| HRS-08 | The ESP32 and ATMega328PB must be able to communicate using SPI.                                          |
 
 ### 7. Bill of Materials (BOM)
-
-We need the ATMega328pb, 2 FeatherS2, the LSM6ds0 IMU, the US-10 ultrasonic sensor, 3 motors with encoders, 3 omni wheels, 3 motor drivers, flex sensor, battery pack
-
-[https://docs.google.com/spreadsheets/d/1VVz9bghLVpC_rwVTz9ZApd166kRQwFx1JgdSo3LERfQ/edit?gid=253149064#gid=253149064](https://docs.google.com/spreadsheets/d/1VVz9bghLVpC_rwVTz9ZApd166kRQwFx1JgdSo3LERfQ/edit?gid=253149064#gid=253149064)
+This is a general list of our bill of materials. A more detailed list can be found [here](https://docs.google.com/spreadsheets/d/1VVz9bghLVpC_rwVTz9ZApd166kRQwFx1JgdSo3LERfQ/edit?gid=253149064#gid=253149064). We used an ATMega329PB, Feather ESP32 V2, Feather ESP32 S2, LM6DS0 IMU, US-10 Ultrasonic sensor, 3 6V Polulu motors with motor mounts and enocder wires, 6V battyer, 2 DRV8871 motor drivers, and 3 omni wheels.
 
 ### 8. Final Demo Goals
 
@@ -125,105 +147,95 @@ On Demo Day, we will build an obstacle course for our rover to test in. Someone 
 
 ### 9. Sprint Planning
 
-*You've got limited time to get this project done! How will you plan your sprint milestones? How will you distribute the work within your team? Review the schedule in the final project manual for exact dates.*
-
-| Milestone  | Functionality Achieved                                                                                                                                                                                                                                                                                           | Distribution of Work                                                                                                                                                                                                  |
+| Milestone  | Functionality Achieved                                                                                                                                                                                                                                                                                           |
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Sprint #1  | 1. Developed Wearable Controller Prototype using the FeatherS2.<br />2. Implemented motion sensing algorithms with the  LSM6DS0 IMU.<br />3. Integrated the Flex Sensor for ADC-based speed control.<br />4. Developed basic motor control firmware for the ATmega using PWM signals for speed and direction. | 1. Vidhu: FeatherS2 code for IMU and Flex Sensor integration.<br />2. Izzy: ATmega328PB motor control firmware development.<br />3. Helena: Hardware setup, wiring, and initial system testing.                    |
-| Sprint #2  | 1. Established UART Communication between the two FeatherS2 boards.<br />2. Integrated gesture detection logic with motor speed control via PWM signals.<br />3. Assembled hardware components: Motor Drivers, Omni Wheels, and Power Systems.<br />4. Conducted movement tests to verify functionality.      | 1. Vidhu: UART communication code on both FeatherS2 boards.<br />2. Izzy: ATmega328PB firmware to decode UART data and control motors.<br />3. Helena: Hardware assembly, component mounting, and test setup.      |
-| MVP Demo   | 1. Developed and tested the Ultrasonic Sensor with the ATmega328PB.<br />2. Integrated obstacle detection logic to trigger the Buzzer via GPIO.<br />3. Refined gesture detection algorithms to improve accuracy.<br />4. Fine-tuned Flex Sensor ADC values for smoother speed control.                      | 1. Vidhu: Ultrasonic sensor and buzzer control implementation.<br />2. Izzy: Refinement of gesture detection code for better responsiveness.<br />3. Helena: Conducted thorough testing of speed control accuracy. |
-| Final Demo | 1. Conducted full system integration for all subsystems.<br />2. Performed system calibration for accurate motion control, speed adjustment, and obstacle detection.<br />3. Conducted extensive performance testing for stability.                                                                           | 1. Vidhu: Final integration and calibration.<br />2. Izzy: Conducted performance testing and refined software logic.<br />3. Helena: In charge of documentation and demonstration preparation.                     |
+| Sprint #1  | 1. Developed Wearable Controller Prototype using the FeatherS2.<br />2. Implemented motion sensing algorithms with the  LSM6DS0 IMU.<br />3. Integrated the Flex Sensor for ADC-based speed control.<br />4. Developed basic motor control firmware for the ATmega using PWM signals for speed and direction. | 
+| Sprint #2  | 1. Established UART Communication between the two FeatherS2 boards.<br />2. Integrated gesture detection logic with motor speed control via PWM signals.<br />3. Assembled hardware components: Motor Drivers, Omni Wheels, and Power Systems.<br />4. Conducted movement tests to verify functionality.      |
+| MVP Demo   | 1. Developed and tested the Ultrasonic Sensor with the ATmega328PB.<br />2. Integrated obstacle detection logic to trigger the Buzzer via GPIO.<br />3. Refined gesture detection algorithms to improve accuracy.<br />4. Fine-tuned Flex Sensor ADC values for smoother speed control.                      | 
+| Final Demo | 1. Conducted full system integration for all subsystems.<br />2. Performed system calibration for accurate motion control, speed adjustment, and obstacle detection.<br />3. Conducted extensive performance testing for stability.                                                                           |
 
-**This is the end of the Project Proposal section. The remaining sections will be filled out based on the milestone schedule.**
+## Prototyping Images
+<!-- row 1 -->
+<div style="display: flex; justify-content: center; gap: 20px;">
+  <div style="text-align: center;">
+    <img src="image/prototyping/1744386962001.png" width="300"><br>
+    <sub>Robot Chassis</sub>
+  </div>
 
-## Sprint Review #1
+  <div style="text-align: center;">
+    <img src="image/prototyping/1744387248505.png" width="250"><br>
+    <sub>Flex Sensor Wiring</sub>
+  </div>
 
-### Last week's progress
+  <div style="text-align: center;">
+    <img src="image/prototyping/1744387161125.png" width="225"><br>
+    <sub>Flex Sensor ADC</sub>
+  </div>
 
-We have designed and modeled the housing for our robot. We then laser cut the parts out of acrylic.
+  <div style="text-align: center;">
+    <img src="image/prototyping/motor_prototype_noEncoder.jpg" width="250"><br>
+    <sub>Motor Driver Setup</sub>
+  </div>
+</div>
 
-<img src="image/README/1743784290832.png" width="700">
+<br>
 
-We have also started implementing the gesture control by working with the IMU and feather S2 to determine the acceleration and rotation of the controller. The IMU is not outputting the measurements properly so it will require further debugging.
+<!-- row 2 -->
+<div style="display: flex; justify-content: center; gap: 20px;">
+  <div style="text-align: center;">
+    <img src="image/prototyping/1744395277483.png" width="170"><br>
+    <sub>Distance Measurements</sub>
+  </div>
 
-### Current state of project
+  <div style="text-align: center;">
+    <img src="image/prototyping/Screenshot 2025-04-26 140427.png" width="250"><br>
+    <sub>IMU Calibration</sub>
+  </div>
 
-The project is coming along well. We are still waiting on the bulk of our parts to come in so we can start testing with the motors.
+  <div style="text-align: center;">
+    <img src="image/prototyping/1744355337046.png" width="300"><br>
+    <sub>IMU Calibration Output</sub>
+  </div>
 
-### Next week's plan
+  <div style="text-align: center;">
+    <img src="image/prototyping/Screenshot 2025-04-26 140459.png" width="250"><br>
+    <sub>Feather S2 on OmniBot</sub>
+  </div>
+</div>
 
-Finish implementing the IMU detection. We will also start testing the flex sensor ADC. We will start assembing the physical robot using the laser cut parts and the other parts if they arrive.
+<br>
 
-Vidhu will finish debugging the IMU.
+<!-- row 3 -->
+<div style="display: flex; justify-content: center; gap: 20px;">
+  <div style="text-align: center;">
+    <img src="image/prototyping/Screenshot 2025-04-26 140418.png" width="250"><br>
+    <sub>Motor Assembly</sub>
+  </div>
 
-Izzy will assemble the robot.
+  <div style="text-align: center;">
+    <img src="image/prototyping/Screenshot 2025-04-26 140444.png" width="250"><br>
+    <sub>Integration</sub>
+  </div>
 
-Helena will test the flex sensor.
+  <div style="text-align: center;">
+    <img src="image/prototyping/Screenshot 2025-04-26 140436.png" width="250"><br>
+    <sub>Testing!!</sub>
+  </div>
 
-## Sprint Review #2
+  <div style="text-align: center;">
+    <img src="image/prototyping/MVP_robot.jpg" width="250"><br>
+    <sub>MVP Assembly</sub>
+  </div>
+</div>
 
-### Last week's progress
+<br>
 
-The picture velow shows varying outputs of the imu (need to calibrate in code the readings).
-
-<img src="image/README/1744355337046.png" width="600">
-
-some elementary calibration for the x acceleration showing the zero bias
-
-The flex sensor is working with its ADC pin as PC0. The ADC reads around 300 if the flex sensor is bent straight, and reads 0 if the flex sensor is completely bent.
-
-<img src="image/README/1744387161125.png" height="400">
-<img src="image/README/1744387248505.png" height="400">
-
-### Current state of project
-
-We've assembled the mechanical part of the rover robot, where the motor are attached to the bottom plate with the motor mounts, and the omni wheels are connected to the motor. The ultra sensor is also fixed in the bottom plate. The top plate will house the atmega and the other wiring. For the electrical part, the flex sensor (connected to ADC pin PC0) is working as expected, see code: [https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/flexsensor.c](https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/flexsensor.c)
-
-<img src="image/README/1744386962001.png" width="700">
-
-Since the wires for our motor haven't arrived yet, we tested with the motors in the Detkin lab, and it functions properly as expected. The connections is as follows:
-
-For motor 1, AIN1 goes to PB1, AIN2 goes to PB2, SLP goes to 5V on ATMega, AOUT goes to Motor M1 and M2.The green terminal is 5V and ground. See code (controllong a single Detkin motor): [https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/simple_working_motor_single.c](https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/simple_working_motor_single.c). We followed similar wiring for the rest of the motor. Here is our motor prototype:
-
-<img src="image/motor_prototype_noEncoder.jpg" width="300">
-
-Here are detailed tables describing our wiring for the motors, motor driver, and ATMega328PB.
-
-Motor Wiring:
-
-<img src="image/wiring_motors.png" width="300">
-
-Motor Driver Wiring:
-
-<img src="image/wiring_motor_driver.png" width="500">
-
-The ultrasensor along with the active buzzer is also working. Active buzzer is connected to PD6, the trig and echo pin of ultrasensor is connected to PC1 and PC2, and we used Timer2 to control the pulse. Buzzer sounds if distance is less than 15 cm. See code: [https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/ultrasensor_buzzer.c](https://github.com/upenn-embedded/final-project-s25-oranges/blob/main/ultrasensor_buzzer.c)
-
-<img src="image/README/1744395277483.png" width="350">
-
-### Next week's plan
-
-We will test the IMU with our calibrated code. We will also finish wiriing the motors with our motor drivers, and work on the encoding part. The electronics part should be integrating together, and we'll fix any potential conflicting issues. We will also work on EPS32 wiresless communcation
-
-## MVP Demo
-
-### 1. Show a system block diagram & explain the hardware implementation.
-
-<img src="image/README/1745003060418.png" width="850">
-
-Each motor is paried with a motor driver. Our motor drivers can take up to 2 motors, so we have 2 motor drivers in total. We connected the encoder wires to the relevant ports on the motor driver as shown below in the following tables. The motor driver is also connected to the relevant timer ports on the ATMega328PB so that the PWM signals and duty cycle can be sent through. The wiring for this is also shown in the tables below. To power our entire system, we use a 6V battery. The motor driver helps make sure that enough current is supplied to the motors. We use a 5V voltage regulator to convert the 6V voltage supply to 5V to power the ATMega328PB. The buzzer and ultrasonic sensor are also connected in this ATMega328PB and the wiring is shown in the tables below,
-
-The hardware implementation of the motors, motor drivers, and sensors are given in the above tables.
+## Wiring Diagrams
 
 <img src="image/README/1744999325226.png" width="650">
 
 <img src="image/README/1744999918987.png" width="650">
 
-### 2. Explain your firmware implementation, including application logic and critical drivers you've written.
-
-**Robot Movement**: 3 timers were configured to drive the motors. Timer 1 is used for Motor 1, Timer 3 is used for Motor 2, and Timer 4 is used for Motor 3. For timer 3 and 4, one PWM pin outputs variable duty cycles, and a GPIO direction pin sets motor direction (HIGH/LOW). For timer 1, there are two PWM pins to output variable duty cycles. Then we have custom functions such as move_forward(), move_backward(), move_left(), and move_right(). Each function will send different duty cycles to each wheel to control it in the four basic directions. To control the speed, the ratio of duty cycle for each wheel can be scaled up or down. We begin the robot movement by initializing all motors and calibrating the IMU sensor. Then based off the data from the IMU, we will call one of the four functions to guide the direction of the robot.
-
-**IMU Calibration**: To implement the IMU so that the robot can move based off of the IMU tilting degree, we collected data for the x and y positions. With this data, we plotted the two datasets to see the differences in variables when we tilt the IMU and when it is stationary. We also observed that as the degree of tiling increases, the absolute value of the IMU output also increases.
 
 <img src="image/README/1745000343593.png" height="354">
 
@@ -250,6 +262,13 @@ For the AtMega and ESP32 board to send data, we are working on integrating SPI t
 ### **3. Demo your device.**
 
 [https://drive.google.com/file/d/1towJo-rZc65AxGEO1gTTv1Kd22KoXjRQ/view?usp=sharing](https://drive.google.com/file/d/1towJo-rZc65AxGEO1gTTv1Kd22KoXjRQ/view?usp=sharing)
+
+
+### 2. Explain your firmware implementation, including application logic and critical drivers you've written.
+
+**Robot Movement**: 3 timers were configured to drive the motors. Timer 1 is used for Motor 1, Timer 3 is used for Motor 2, and Timer 4 is used for Motor 3. For timer 3 and 4, one PWM pin outputs variable duty cycles, and a GPIO direction pin sets motor direction (HIGH/LOW). For timer 1, there are two PWM pins to output variable duty cycles. Then we have custom functions such as move_forward(), move_backward(), move_left(), and move_right(). Each function will send different duty cycles to each wheel to control it in the four basic directions. To control the speed, the ratio of duty cycle for each wheel can be scaled up or down. We begin the robot movement by initializing all motors and calibrating the IMU sensor. Then based off the data from the IMU, we will call one of the four functions to guide the direction of the robot.
+
+**IMU Calibration**: To implement the IMU so that the robot can move based off of the IMU tilting degree, we collected data for the x and y positions. With this data, we plotted the two datasets to see the differences in variables when we tilt the IMU and when it is stationary. We also observed that as the degree of tiling increases, the absolute value of the IMU output also increases.
 
 ### 4. Have you achieved some or all of your Software Requirements Specification (SRS)?
 
