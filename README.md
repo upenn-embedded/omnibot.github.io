@@ -280,7 +280,6 @@ Some Timer 3 and Timer 4 use one of the same pins, PD2, which is why timer 4 is 
 
 ## Final Project Report
 
-Don't forget to make the GitHub pages public website!
 If you’ve never made a GitHub pages website before, you can follow this webpage (though, substitute your final project repository for the GitHub username one in the quickstart guide):  [https://docs.github.com/en/pages/quickstart](https://docs.github.com/en/pages/quickstart)
 
 ### 1. Video
