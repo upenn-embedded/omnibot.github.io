@@ -236,6 +236,7 @@ On Demo Day, we will build an obstacle course for our rover to test in. Someone 
 
 <img src="image/README/1744999918987.png" width="650">
 
+IMU Calibration Data
 
 <img src="image/README/1745000343593.png" height="354">
 
@@ -247,10 +248,14 @@ On Demo Day, we will build an obstacle course for our rover to test in. Someone 
 
 Based on the above data collected, our calibrated control for IMU is:
 
-if (x < -7500 && y > -4000 && y < 4000) → "move forward"
-if (x > 7500 && y > -4000 && y < 4000) → "move backward"
-if (x > -4000 && x < 4000 && y > 7500) → "move right"
-if (x > -4000 && x < 4000 && y < -7500) → "move left"
+if (x < -7500 && y > -4000 && y < 4000) → "move forward"  
+if (x > 7500 && y > -4000 && y < 4000) → "move backward"  
+if (x > -4000 && x < 4000 && y > 7500) → "move right"  
+if (x > -4000 && x < 4000 && y < -7500) → "move left"  
+
+### **Final OmniBot**
+
+<iframe width="700" height="400" src="https://youtu.be/BRfWkiYQ0kc" frameborder="0" allowfullscreen></iframe>
 
 **Comunication**
 The ESP32 modules are able to speak to each other wirelessly over the espressif ESP-NOW protocol. Using the esp now driver from espressif we are able to send data between the two boards based on the IMU direction.
@@ -258,11 +263,6 @@ The ESP32 modules are able to speak to each other wirelessly over the espressif 
 We are using I2C to communicate between the ATMega328pb and the IMU. The atmega is acting as the controller and reading the registers that contain the gyroscope and acceleration data on the IMU.
 
 For the AtMega and ESP32 board to send data, we are working on integrating SPI to send the IMU data. Presently the SPI is not functional so the board are speaking using GPIO and a resistive ladder with an ADC. The feather will set different points on the resistive ladder high while the atmega ADC reads the voltage at the bottom. This allows the Atmega to obtain forward, backwards, left, and right direction information.
-
-### **3. Demo your device.**
-
-[https://drive.google.com/file/d/1towJo-rZc65AxGEO1gTTv1Kd22KoXjRQ/view?usp=sharing](https://drive.google.com/file/d/1towJo-rZc65AxGEO1gTTv1Kd22KoXjRQ/view?usp=sharing)
-
 
 ### 2. Explain your firmware implementation, including application logic and critical drivers you've written.
 
