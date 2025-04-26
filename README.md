@@ -287,9 +287,17 @@ If you’ve never made a GitHub pages website before, you can follow this webpag
 
 <<<<<<< HEAD
 Video Demonstration: https://drive.google.com/file/d/17KMIO_NmtMM-GU8ButMoWfOn6z9yP_SF/view?usp=drive_link
-=======
+==========================================================================================================
+
 [https://drive.google.com/file/d/17KMIO_NmtMM-GU8ButMoWfOn6z9yP_SF/view?usp=sharing](https://drive.google.com/file/d/17KMIO_NmtMM-GU8ButMoWfOn6z9yP_SF/view?usp=sharing)
+
 >>>>>>> 43aea5ed743923b08926a8efa01732b9859efceb
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
 
 ### 2. Images
 
@@ -344,7 +352,7 @@ There is an ultrasonic sensor mounted on the front of our robot. When it detects
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | SRS-01 | The IMU 3-axis acceleration will be measured with 16-bit depth every 100 milliseconds +/-10 milliseconds.                                                                                                                          | Confirmed, logged output from the MCU is saved to "validation" folder in GitHub repository.                                                   |
 | SRS-02 | The ATmega328PB shall process the IMU data and classify gestures based off of certain threshold values correctly.                                                                                                                  | Confirmed, we tested and calibrated the threshold values based on the values outputted by the IMU                                             |
-| SRS-03 | The ESP32 will transmit gesture data from the user to the robot with latency < 200ms.                                                                                                                                              |                                                                                                                                               |
+| SRS-03 | The ESP32 will transmit gesture data from the user to the robot with latency < 200ms.                                                                                                                                              | Confirmed, the robot is able to respond within 200ms, which means that the communication is able to transmit faster than this.                |
 | SRS-04 | The robot shall have three speed modes controlled based on the angular velocity detected from wrist rolling.                                                                                                                       | Not met, the robot speed is always constant for each direction                                                                                |
 | SRS-05 | The ultrasonic sensor shall detect obstacles within 5–100 cm. If an obstacle is within 20 cm, the robot will stop, ignore commands, and the LED will turn red. Once cleared, the robot resumes movement, and the LED turns green. | Confirmed, the ultrasonic sensor is able to sense obstacles within 20cm and stop the robot. We chose to implement a buzzer instead of the LED |
 | SRS-06 | The entire system will run independently on the ATmega328PB without the need of an external computer.                                                                                                                              | Confirmed, the robot is completely autonomous and run off of the ATMega328pb                                                                  |
@@ -394,6 +402,7 @@ We also learn more about the control and kinematics of three-wheel motion contro
 We also learned that integration was a very important step. Although all stages worked well separately, putting them all together usually produces unexpected behaviors. For instance, UART would crash the entire motor motion setup program, so that we have to test print statements and motions separately. But overall, we learn how to manage PWM signals, especially when dealing with multiple timer; the I2C and SPI communication between IMU, feather, and ATmega; using ADC pins and GPIO pins; using UART for debugging and verfication for separate stages etc.
 
 ##### 5. Did you have to change your approach?
+
 We initially intended this robot to be controlled with the movements of your hand using a glove-mounted IMU. However, since we didn't order the glove hardware, we redesigned it to use a small Feather-sized controller instead. This means we couldn't implement the flex sensors that were originally planned to control the robot's speed.
 
 The speed control would have required dynamically adjusting the ratio between the left and right motor duty cycles. This presents a problem because our drift correction function relies on very specific motor pulses. The correction works by applying brief, low-power motor pulses (just 48-55 duty cycle) that are barely strong enough to overcome static friction. If we tried to scale down the overall speed, these correction pulses would become too weak to overcome friction. At that point, the robot would lose its ability to drive straight and would instead start turning in circles because the drift correction would fail. Forward and backward pose no issue to speed control, but left and right have difficulty because of the drift correction. In further iterations, if we use encoder feedback to drive the left and rightward motion, then we will be able to adjust speed based off of the change in acceleration over time of the IMU.
