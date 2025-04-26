@@ -352,16 +352,16 @@ There is an ultrasonic sensor mounted on the front of our robot. When it detects
 
 *Validate at least two requirements, showing how you tested and your proof of work (videos, images, logic analyzer/oscilloscope captures, etc.).*
 
-| ID     | Description                                                                                                                        | Validation Outcome                                                                                                      |
-| ------ | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| HRS-01 | The rover must be able to run for at least 15 minutes continuously                                                                 |                                                                                                                         |
-| HRS-02 | A distance sensor shall be used for obstacle detection. The sensor shall detect obstacles at a maximum distance of at least 10 cm. | Confirmed, sensed obstacles up to 15cm. Video in "validation" folder, shows tape measure and logged output to terminal. |
-| HRS-03 | The motors must be able to move the rover at varying speeds                                                                        | Not met, the rover moves at the same speed in all directions                                                            |
-| HRS-04 | The rover must be able to move in perpendicular directions without needing to turn using the omni wheels                           | Confirmed, the robot can move left and right without needing to rotate                                                  |
-| HRS-05 | The flex sensor must be able to control the speed of the rover using an ADC                                                        | Not met, we decided not the implement the flex sensor                                                                   |
-| HRS-06 | Motion of the IMU must translate into motion of the rover                                                                          | Confirmed, the IMU rotation corresponds to the robot moving                                                             |
-| HRS-07 | The two ESP32 boards must be able to wirelessly communicate with each other directly                                               | Confirmed, the two ESP32 modules are able to communicate wirelessly                                                     |
-| HRS-08 | The ESP32 and ATMega328pb must be able to communicate using SPI                                                                    | Confirmed, the feather sends IMU data to the ATMega through SPI                                                         |
+| ID     | Description                                                                                                                        | Validation Outcome                                                                                         |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| HRS-01 | The rover must be able to run for at least 15 minutes continuously                                                                 | Confirmed. We turned the robot ON continously for 15 minutes and the battery is capable for sustaining it. |
+| HRS-02 | A distance sensor shall be used for obstacle detection. The sensor shall detect obstacles at a maximum distance of at least 10 cm. | Confirmed, sensed obstacles up to 15 cm. See serial output in image/demo video in above link.              |
+| HRS-03 | The motors must be able to move the rover at varying speeds                                                                        | Not met, the rover moves at the same speed in all directions                                               |
+| HRS-04 | The rover must be able to move in perpendicular directions without needing to turn using the omni wheels                           | Confirmed, the robot can move left and right without needing to rotate                                     |
+| HRS-05 | The flex sensor must be able to control the speed of the rover using an ADC                                                        | Not met, we decided not the implement the flex sensor                                                      |
+| HRS-06 | Motion of the IMU must translate into motion of the rover                                                                          | Confirmed, the IMU rotation corresponds to the robot moving                                                |
+| HRS-07 | The two ESP32 boards must be able to wirelessly communicate with each other directly                                               | Confirmed, the two ESP32 modules are able to communicate wirelessly                                        |
+| HRS-08 | The ESP32 and ATMega328pb must be able to communicate using SPI                                                                    | Confirmed, the feather sends IMU data to the ATMega through SPI                                            |
 
 ### 4. Conclusion
 
@@ -375,12 +375,19 @@ Another important takeaway was learning how unpredictable embedded systems devel
 
 The IMU went well in controlling the direction of the robot's motion. It was able to distinguish each direction smoothly without confusion. The ultrasensor is also detecting object accurately without making annoying unwanted noises. Since we carefully assign the timers to motors and ultrasonic sensors and that the SPI communication did not require a timer, no integration conflict happened for the timers. Some pins had to be adjusted during integration, but eventually, we're able to utilize the correct PWM pins and GPIO pins correctly. The power manaagement for the robot (6V) battery was really successfully, since we didn't need to recharge it for the entirely of our project, which proves its durability.
 
+Aside from that, the initial mechanical part in designing the robot's structure is also pretty successful since it's very steady when we're testing the robot, and the support for the ultrasonic sensor press-fit well wihout ever falling.
+
 #### 3. What accomplishments are you proud of?
 
 Our motors are able to transition very smoothly and react fairly between changes in directions. A big part of this was implementing *direction states* in the code. Initially, the motors would "think" every second and decide what direction they would move in. However, after implementing states, if the direction is the same, then the motors will continue to move in the same direction without stopping. This resulted in better transitions between different direction states as well as more control of the robot. Additionally, the given that it is a 3-wheel omnidrive robot, it is able to move left and right well. We implemented a drift_correction function that corrects for drift if it detects that the robot is moving left or right. This lets the robot move successfully to the left or right without making a circle.
 
 #### 4. What did you learn/gain from this experience?
 
+From this experience, we learned how to integrate multiple hardware subsystems into an integrated embedded system. It also helped us learn how each individual parts might interact in unexpected ways when combined. We gained how import UART debugging is. the feather SPI communication has been quite a big issue for us, since the high and low bits tend to mess around with each other, which output us completely random results on the serial monitor. Then, we print our the feather V2, S2 output and the signal that atmega's receiving separatingly on both arduino and MPLab. We also printed low and high bits separately and figured out the issue. We also learned how to structure data packets between two ESP32 Feather S2 boards.
+
+We also learn more about the control and kinematics of three-wheel motion control. The robot is symmetric moving forward/backward, hence motion control is quite straightforward. However, for left and right motion, we implemented a drift motion of the third wheel that compensates for the error in motion. We also read some literature about kinematics of three wheel motion and its vector applications with encoders, but the algorithm is too complicated under the timeline, hence we'll plan to implement that for future explorations.
+
+We also learned that integration was a very important step. Although all stages worked well separately, putting them all together usually produces unexpected behaviors. For instance, UART would crash the entire motor motion setup program, so that we have to test print statements and motions separately. But overall, we learn how to manage PWM signals, especially when dealing with multiple timer; the I2C and SPI communication between IMU, feather, and ATmega; using ADC pins and GPIO pins; using UART for debugging and verfication for separate stages etc.
 
 ##### 5. Did you have to change your approach?
 
