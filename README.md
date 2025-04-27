@@ -281,56 +281,68 @@ There is an ultrasonic sensor mounted on the front of our robot. When it detects
 <div align="center">
 
 **Overall Look**  
+<br>
 
-![1745614107304](image/README/1745614107304.jpg)
+<img src="image/README/1745614107304.jpg" width="500">
 
 </div>
+
+<br>
 
 <div align="center">
 
 **Front View**  
+<br>
 
-![1745614126737](image/README/1745614126737.jpg)
+<img src="image/README/1745614126737.jpg" width="500">
 
 </div>
+
+<br>
 
 <div align="center">
 
 **Back View**  
+<br>
 
-![1745614136126](image/README/1745614136126.jpg)
+<img src="image/README/1745614136126.jpg" width="500">
 
 </div>
+
+<br>
 
 <div align="center">
 
 **Top View**  
-
-![1745614149322](image/README/1745614149322.jpg)
+<br>
+<img src="image/README/1745614149322.jpg" width="500">
 
 </div>
+
+<br>
 
 <div align="center">
 
 **Bottom Layer Details (Motors)**  
+<br>
 
-![1745614163817](image/README/1745614163817.jpg)
+<img src="image/README/1745614163817.jpg" width="500">
 
 </div>
+
+<br>
 
 <div align="center">
 
 **IMU Detail**  
+<br>
 
-![1745614186613](image/README/1745614186613.jpg)
+<img src="image/README/1745614186613.jpg" width="500">
 
 </div>
 
 
 ### References
-
-Fill in your references here as you work on your final project. Describe any libraries used here.
-
 In our MPLAB code, we used the standard C libraries including "stdio.h", for input output, "avr/io.h" and "avr/interrupt.h", for standard avr and interrupts, and "util/delay.h", for delays.
 
 In our Arduino code for our IMU and Feather communication via I2C and Feather to Feather communication through ESP-NOW, we used the libraries "Wire.h", "esp_now.h", and "WiFi.h". "Wire.h" enables the I2C communication between the IMU and the Feather. It interfaces with the SDA and SCL lines of the IMU. We use "esp_now.h" to implement the ESP-NOW protocol which allows us to communicate from one Feather to another by sending and receiving data packets. The "WiFi.h" library is used to manage the Wifi connections that are needed for the ESP-NOW communication in the "esp_now.h" library.
