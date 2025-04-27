@@ -1,9 +1,11 @@
 <div id="slideshow" style="width:100%; max-width:700px; margin: auto; position: relative; height: 450px;">
+  <img src="image\IMG_9727.JPG" style="width:100%; position:absolute; opacity:1; transition: opacity 1s;">
   <img src="image\README\1745614126737.jpg" style="width:100%; position:absolute; opacity:1; transition: opacity 1s;">
   <img src="image\README\1745614136126.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
   <img src="image\README\1745614149322.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
   <img src="image\README\1745614163817.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
   <img src="image\README\1745614170997.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
+  <img src="image\3.jpg" style="width:100%; position:absolute; opacity:0; transition: opacity 1s;">
 </div>
 
 <script>
