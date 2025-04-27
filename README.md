@@ -154,7 +154,7 @@ On Demo Day, we will build an obstacle course for our rover to test in. Someone 
 | MVP Demo   | 1. Developed and tested the Ultrasonic Sensor with the ATmega328PB.<br />2. Integrated obstacle detection logic to trigger the Buzzer via GPIO.<br />3. Refined gesture detection algorithms to improve accuracy.<br />4. Fine-tuned Flex Sensor ADC values for smoother speed control.                      | 
 | Final Demo | 1. Conducted full system integration for all subsystems.<br />2. Performed system calibration for accurate motion control, speed adjustment, and obstacle detection.<br />3. Conducted extensive performance testing for stability.                                                                           |
 
-## Prototyping Images
+### Prototyping Images
 <!-- row 1 -->
 <div style="display: flex; justify-content: center; gap: 20px;">
   <div style="text-align: center;">
@@ -230,7 +230,7 @@ On Demo Day, we will build an obstacle course for our rover to test in. Someone 
 
 <br>
 
-## Wiring Diagrams
+### Wiring Diagrams
 
 <img src="image/README/1744999325226.png" width="650">
 
@@ -259,25 +259,24 @@ if (x > -4000 && x < 4000 && y < -7500) → "move left"
   <iframe width="700" height="400" src="https://www.youtube.com/embed/BRfWkiYQ0kc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-**Comunication**
-The ESP32 modules are able to speak to each other wirelessly over the espressif ESP-NOW protocol. Using the esp now driver from espressif we are able to send data between the two boards based on the IMU direction.
 
-We are using I2C to communicate between the ATMega328pb and the IMU. The atmega is acting as the controller and reading the registers that contain the gyroscope and acceleration data on the IMU.
+We were successfully able to complete our entire project and have a reliable working demo. Our final OmniBot was able to move in all four basic directions based on the tilt of the controller. It could also stop if an obstacle was detected in front of it. When this obstacle is detected, the buzzer will sound to alert the user, and the user can only move the OmniBot backward, left, and right. Many of our classmates and friends played around with the OmniBot and found it very fun!
 
-For the AtMega and ESP32 board to send data, we are working on integrating SPI to send the IMU data. Presently the SPI is not functional so the board are speaking using GPIO and a resistive ladder with an ADC. The feather will set different points on the resistive ladder high while the atmega ADC reads the voltage at the bottom. This allows the Atmega to obtain forward, backwards, left, and right direction information.
+**Technical Details**
+**Robot Movement**: 3 timers were configured to drive the motors. Timer 1 is used for Motor 1, Timer 3 is used for Motor 2, and Timer 4 is used for Motor 3. These three timers are all 16-bit timers which make the configuration of each motor identical. For timer 1, we use two OCRA/B values to send different PWM signals to control the direction and speed. For timer 3 and 4, we found that the second OCRB pin overlapped with each other (both used PD2 on the ATMega), thus we use one PWM pin to output variable duty cycles and a GPIO direction pin sets motor direction (HIGH/LOW). We wrote custom functions such as `move_forward()`, `move_backward()`,` move_left()`, and `move_right()` for each direction of the robot. Each function will send different duty cycles to each wheel to control it in the four basic directions. To control the speed, the ratio of duty cycle for each wheel can be scaled up or down. Since the robot is three-wheeled, we accounted for the drift of the robot through a `drift_correction()` function or else the robot will make a lot of circles instead of going in the desired direction! If the left or right direction is detected,  `drift_correction()` will be called which alternates the PWM outputs of one motor slightly back and forth to "steer" the OmniBot towards a straighter left or right direction. This happens periodically. We implemented directional states, so the OmniBot can keep track of which direction it is currently going in and only changes motor movements if a new state is detected from the user IMU controller.
 
-### 2. Explain your firmware implementation, including application logic and critical drivers you've written.
+**IMU Calibration**: To implement the IMU so that the OmniBot can move based off of the IMU tilting degree, we collected data for the x and y acceleration values on the IMU at different tilting degrees. We plotted these values, shown in earlier figures, to determine different classification values. We were able to observe clear differences of the x and y acceleration when the IMU was stationary or tilted. We also observed that as the degree of tiling increases, the absolute value of the IMU output also increases. With these values, we were able to implement conditional clauses that call the right direction functions to activate the correct PWM signals and duty cycles for the respective motors.
 
-**Robot Movement**: 3 timers were configured to drive the motors. Timer 1 is used for Motor 1, Timer 3 is used for Motor 2, and Timer 4 is used for Motor 3. For timer 3 and 4, one PWM pin outputs variable duty cycles, and a GPIO direction pin sets motor direction (HIGH/LOW). For timer 1, there are two PWM pins to output variable duty cycles. Then we have custom functions such as move_forward(), move_backward(), move_left(), and move_right(). Each function will send different duty cycles to each wheel to control it in the four basic directions. To control the speed, the ratio of duty cycle for each wheel can be scaled up or down. We begin the robot movement by initializing all motors and calibrating the IMU sensor. Then based off the data from the IMU, we will call one of the four functions to guide the direction of the robot.
+**Controller**
+The controller is composed of the IMU, which is communicating the accelerometer data to the Feather ESP32 V2 via I2C. This data was calibrated through processing several datasets of both the x and y accelerometer data depending on the tilting of the IMU, as discussed above. Once the IMU is calibrated, then the robot can correctly identify the tilt of the controller and act accordingly. Through creative soldering, we were able to make the controller as small as the Feather ESP32 S2 which is roughly 2.5 in x 1 in (super small!).
 
-**IMU Calibration**: To implement the IMU so that the robot can move based off of the IMU tilting degree, we collected data for the x and y positions. With this data, we plotted the two datasets to see the differences in variables when we tilt the IMU and when it is stationary. We also observed that as the degree of tiling increases, the absolute value of the IMU output also increases.
+**Communication**
+The IMU is collecting the accelerometer data from the controller. This data is sent processed in the Feather ESP32 V2 and sent to the Feather ESP32 S2 on the robot, wirelessly, through the ESP-NOW protocol. The Feather on the robot then communicates the data it received to the ATMega328PB through SPI, so the robot can act accordingly.
 
+**Ultrasonic Sensor**
+There is an ultrasonic sensor mounted on the front of our robot. When it detects a distance less than 20cm, it will sound a buzzer and will not let you move forward even if the controller is in the forward position. The robot will only be able to move back, left, and right until it is clear of the blocking object. The buzzer we are using is an active buzzer which beeps if the pin is in the HIGH state. We use polling and not interrupts so that the ATMega continuously checks the ECHO pin to see if the distance is below threshold value.
 
-<img src="image/MVP_robot.jpg" width="350">
-
-
-
-### 2. Images
+### Final Images
 
 Overall Look:
 ![1745614107304](image/README/1745614107304.jpg)
@@ -302,23 +301,15 @@ IMU Detail:
 
 ![1745614186613](image/README/1745614186613.jpg)
 
-### 3. Results
+### References
 
-Our final robot consisted of a three-wheel omnidrive base with an ultrasonic sensor. This robot is controlled wirelessly based off of the rotation of the controller. Here is the general breakdown of the different components on our robot.
+Fill in your references here as you work on your final project. Describe any libraries used here.
 
-**Motor Control**
-The three motors on our robot are controlled through PWM signals using Timers 1, 3, and 4 from the ATMega328PB. Depending on which OCRA or OCRB the PWM signal is fed in, the motor will either rotate counter clockwise or clockwise. The speed of the motors can be controlled through changing the duty cycle. The advantage of our omniwheels is that our robot does not need to rotate to change directions; it can easily shift between forward, backward, left, and right.
+In our MPLAB code, we used the standard C libraries including "stdio.h", for input output, "avr/io.h" and "avr/interrupt.h", for standard avr and interrupts, and "util/delay.h", for delays.
 
-**Communication**
-The IMU is collecting the accelerometer data from the controller. This data is sent processed in the Feather ESP32 V2 and sent to the Feather ESP32 S2 on the robot, wirelessly, through the ESP-NOW protocol. The Feather on the robot then communicates the data it received to the ATMega328PB through SPI, so the robot can act accordingly.
+In our Arduino code for our IMU and Feather communication via I2C and Feather to Feather communication through ESP-NOW, we used the libraries "Wire.h", "esp_now.h", and "WiFi.h". "Wire.h" enables the I2C communication between the IMU and the Feather. It interfaces with the SDA and SCL lines of the IMU. We use "esp_now.h" to implement the ESP-NOW protocol which allows us to communicate from one Feather to another by sending and receiving data packets. The "WiFi.h" library is used to manage the Wifi connections that are needed for the ESP-NOW communication in the "esp_now.h" library.
 
-**Controller**
-The controller is composed of the IMU, which is communicating the accelerometer data to the Feather ESP32 V2 via I2C. This data was calibrated through processing several datasets of both the x and y accelerometer data depending on the tilting of the IMU. Once the IMU is calibrated, then the robot can correctly identify the tilt of the controller and act accordingly.
-
-**Ultrasonic Sensor**
-There is an ultrasonic sensor mounted on the front of our robot. When it detects a distance less than 20cm, it will sound a buzzer and will not let you move forward even if the controller is in the forward position. The robot will only be able to move back, left, and right until it is clear of the blocking object. The buzzer we are using is an active buzzer which beeps if the pin is in the HIGH state.
-
-### 4. Conclusion
+### Conclusion
 
 #### 1. What did you learn from it?
 
@@ -370,11 +361,3 @@ We didn't anticipate the communication between the robot and controller to take 
 The next steps of the project can include integrating a smoother transition between different moving states of the robot. Currently, it is able to move forward, backward, left, and right and transition smoothly between these states. If we study the kinematics of a three wheel omnidrive robot more, we can implement smoother control of the robot. We can probably take the x and y vectors sent over by the IMU, and use a formula to calculate the direction of the controller, from this we can adjust the PWM and duty cycle of each motor so the robot moves in the desired direction. Additionally, the ultrasonic sensor requires a bit of thinking before it beeps and stop the robot. We could potentially integrate the sensor in a different way where it takes less time to think and can act quickly.
 
 We can also work on reducing the bulkiness of the robot. The top of the robot has multiple breadboards to house the Feather, motor drivers, and ATMega328PB. We tried to use a protoboard to reduce the bulkiness; however, when we were testing this newly soldered, second set of components, it seemed that everything was shorting each other as the multimeter read 0V between VCC and GND. We are still unsure why this is happening, because our soldering joints were very precise and small, but we hope we can find a better solution to make the overall robot look better and weigh lighter.
-
-## References
-
-Fill in your references here as you work on your final project. Describe any libraries used here.
-
-In our MPLAB code, we used the standard C libraries including "stdio.h", for input output, "avr/io.h" and "avr/interrupt.h", for standard avr and interrupts, and "util/delay.h", for delays.
-
-In our Arduino code for our IMU and Feather communication via I2C and Feather to Feather communication through ESP-NOW, we used the libraries "Wire.h", "esp_now.h", and "WiFi.h". "Wire.h" enables the I2C communication between the IMU and the Feather. It interfaces with the SDA and SCL lines of the IMU. We use "esp_now.h" to implement the ESP-NOW protocol which allows us to communicate from one Feather to another by sending and receiving data packets. The "WiFi.h" library is used to manage the Wifi connections that are needed for the ESP-NOW communication in the "esp_now.h" library.
