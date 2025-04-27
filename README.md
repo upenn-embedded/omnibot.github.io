@@ -280,7 +280,7 @@ There is an ultrasonic sensor mounted on the front of our robot. When it detects
 
 <div align="center">
 
-**Overall Look**  
+Overall Look  
 <br>
 
 <img src="image/README/1745614107304.jpg" width="500">
@@ -291,7 +291,7 @@ There is an ultrasonic sensor mounted on the front of our robot. When it detects
 
 <div align="center">
 
-**Front View**  
+Front View  
 <br>
 
 <img src="image/README/1745614126737.jpg" width="500">
@@ -302,7 +302,7 @@ There is an ultrasonic sensor mounted on the front of our robot. When it detects
 
 <div align="center">
 
-**Back View**  
+Back View  
 <br>
 
 <img src="image/README/1745614136126.jpg" width="500">
@@ -313,7 +313,7 @@ There is an ultrasonic sensor mounted on the front of our robot. When it detects
 
 <div align="center">
 
-**Top View**  
+Top View  
 <br>
 <img src="image/README/1745614149322.jpg" width="500">
 
@@ -323,7 +323,7 @@ There is an ultrasonic sensor mounted on the front of our robot. When it detects
 
 <div align="center">
 
-**Bottom Layer Details (Motors)**  
+Bottom Layer Details (Motors)  
 <br>
 
 <img src="image/README/1745614163817.jpg" width="500">
@@ -334,7 +334,7 @@ There is an ultrasonic sensor mounted on the front of our robot. When it detects
 
 <div align="center">
 
-**IMU Detail**  
+IMU Detail  
 <br>
 
 <img src="image/README/1745614186613.jpg" width="500">
