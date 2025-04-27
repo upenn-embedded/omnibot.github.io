@@ -25,7 +25,7 @@ setInterval(() => {
     * Team Name: Oranges
     * Team Members: Izzy, Helena, and Vidhu
     * GitHub Repository URL: [https://github.com/upenn-embedded/final-project-s25-oranges](https://github.com/upenn-embedded/final-project-s25-oranges)
-    * GitHub Pages Website URL: https://github.com/IzzyHuang215/ihuangg_omnibot.github.io.git
+    * GitHub Pages Website URL: [https://upenn-embedded.github.io/omnibot.github.io/](https://upenn-embedded.github.io/omnibot.github.io/)
 
 ## Final Project Proposal
 
