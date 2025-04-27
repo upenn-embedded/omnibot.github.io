@@ -278,6 +278,109 @@ The IMU is collecting the accelerometer data from the controller. This data is s
 **Ultrasonic Sensor**
 There is an ultrasonic sensor mounted on the front of our robot. When it detects a distance less than 20cm, it will sound a buzzer and will not let you move forward even if the controller is in the forward position. The robot will only be able to move back, left, and right until it is clear of the blocking object. The buzzer we are using is an active buzzer which beeps if the pin is in the HIGH state. We use polling and not interrupts so that the ATMega continuously checks the ECHO pin to see if the distance is below threshold value.
 
+### Software Requirments Results
+<table>
+  <thead>
+    <tr>
+      <th style="width:100px;">ID</th>
+      <th>Description</th>
+      <th>Validation Outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SRS-01</td>
+      <td>The IMU 3-axis acceleration will be measured with 16-bit depth every 100 milliseconds +/-10 milliseconds.</td>
+      <td>Confirmed, logged output from the MCU is saved to "validation" folder in GitHub repository.</td>
+    </tr>
+    <tr>
+      <td>SRS-02</td>
+      <td>The ATmega328PB shall process the IMU data and classify gestures based off of certain threshold values correctly.</td>
+      <td>Confirmed, we tested and calibrated the threshold values based on the values outputted by the IMU.</td>
+    </tr>
+    <tr>
+      <td>SRS-03</td>
+      <td>The ESP32 will transmit gesture data from the user to the robot with latency &lt; 200ms.</td>
+      <td>Confirmed, the robot is able to respond within 200ms, meaning communication latency is within requirement.</td>
+    </tr>
+    <tr>
+      <td>SRS-04</td>
+      <td>The robot shall have three speed modes controlled based on the angular velocity detected from wrist rolling.</td>
+      <td>Not met, the robot speed is constant in each direction. Speed modes were not implemented due to time constraints.</td>
+    </tr>
+    <tr>
+      <td>SRS-05</td>
+      <td>The ultrasonic sensor shall detect obstacles within 5–100 cm. If an obstacle is within 20 cm, the robot will stop, ignore commands, and the LED will turn red. Once cleared, the robot resumes movement, and the LED turns green.</td>
+      <td>Confirmed, the ultrasonic sensor stops the robot when within 20 cm. We implemented a buzzer instead of an LED for clearer feedback to the user.</td>
+    </tr>
+    <tr>
+      <td>SRS-06</td>
+      <td>The entire system will run independently on the ATmega328PB without the need of an external computer.</td>
+      <td>Confirmed, the robot is fully autonomous and operates only using the ATMega328PB (see demo video).</td>
+    </tr>
+    <tr>
+      <td>SRS-07</td>
+      <td>If the wireless connection is lost, the robot shall automatically stop within 500 ms.</td>
+      <td>Not met due to time constraints. Planned for future iterations.</td>
+    </tr>
+  </tbody>
+</table>
+
+### Hardware Requirements Results
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:100px;">ID</th>
+      <th>Description</th>
+      <th>Validation Outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HRS-01</td>
+      <td>The rover must be able to run for at least 15 minutes continuously.</td>
+      <td>Confirmed. We turned the robot ON continuously for 15 minutes and verified that the battery could sustain operation.</td>
+    </tr>
+    <tr>
+      <td>HRS-02</td>
+      <td>A distance sensor shall be used for obstacle detection. The sensor shall detect obstacles at a maximum distance of at least 10 cm.</td>
+      <td>Confirmed. The ultrasonic sensor was able to detect obstacles up to 15 cm. See serial output and demo video.</td>
+    </tr>
+    <tr>
+      <td>HRS-03</td>
+      <td>The motors must be able to move the rover at varying speeds.</td>
+      <td>Not met. The rover moves at a constant speed in all directions, although individual motors run at slightly different speeds. See reflection section #5 for more details.</td>
+    </tr>
+    <tr>
+      <td>HRS-04</td>
+      <td>The rover must be able to move in perpendicular directions without needing to turn using the omni wheels.</td>
+      <td>Confirmed. The robot can move left and right without rotating, as demonstrated in the video.</td>
+    </tr>
+    <tr>
+      <td>HRS-05</td>
+      <td>The flex sensor must be able to control the speed of the rover using an ADC.</td>
+      <td>Not met. We decided not to implement the flex sensor since speed control was not fully implemented.</td>
+    </tr>
+    <tr>
+      <td>HRS-06</td>
+      <td>Motion of the IMU must translate into motion of the rover.</td>
+      <td>Confirmed. IMU tilting directly controls the robot's movement. (See demo video)</td>
+    </tr>
+    <tr>
+      <td>HRS-07</td>
+      <td>The two ESP32 boards must be able to wirelessly communicate with each other directly.</td>
+      <td>Confirmed. The ESP32 boards successfully transmit and receive data wirelessly. Validated through Arduino serial monitor and testing screenshots.</td>
+    </tr>
+    <tr>
+      <td>HRS-08</td>
+      <td>The ESP32 and ATmega328PB must be able to communicate using SPI.</td>
+      <td>Confirmed. The Feather sends IMU data to the ATmega328PB through SPI. Validated through UART debug output and video demonstration.</td>
+    </tr>
+  </tbody>
+</table>
+
+
 ### Final Images
 
 <div align="center">
